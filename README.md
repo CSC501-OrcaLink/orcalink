@@ -26,6 +26,6 @@ The model will distinguish family relationships from recorded co-sightings. Whal
 Data files will only be included in this repository where sharing is permitted. 
 
 # Reports
-- [Milestone 1: Project Proposal](reports/01_proposal/1_Proposal_Aung_Bowen.pdf)
+- [Milestone 1: Project Proposal](reports/01_proposal/Proposal_Aung_Bowen.pdf)
 
 Project reports, source notes, diagrams, and preprocessing code will be added as the project progresses.
