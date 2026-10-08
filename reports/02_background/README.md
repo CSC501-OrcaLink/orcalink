@@ -1,14 +1,24 @@
 # Milestone 2: Background and Related Work
 
-Working notes and drafts for OrcaLink's second milestone.
+This folder contains OrcaLink's background review and draft data model.
 
-## Current Files
+The report reviews how CWR, Dryad, and The Whale Museum represent whale identities, family relationships, and sightings. It includes a history of recording methods, a hierarchy of the reviewed representations, a comparative analysis, and a draft ER diagram.
 
-- [Aung's working notes](Background_Notes_Aung.pdf): planning notes, draft abstract, introduction, history, and comparative analysis.
+## Files
 
-## Work in Progress
+- `Background_Aung_Bowen.pdf`: compiled report.
+- `Background_Aung_Bowen.tex`: LaTeX source.
+- `Hierarchy.pdf`: hierarchy of the reviewed representations.
+- `ERD.pdf`: draft entity–relationship diagram.
+- `Background_Notes_Aung.pdf`: working notes and earlier drafts.
 
-- Bowen is developing the hierarchy and draft ER diagram.
-- Comparative analysis will be reviewed together.
-- References and wording are still being checked.
-- The final LaTeX source and compiled report will be added when completed.
+The bibliography and ACM template files are included in the repository.
+
+## Modeling Decisions
+
+- Separate group reports from individual observations.
+- Keep kinship separate from recorded co-sightings.
+- Preserve sources and identification information.
+- Distinguish recorded evidence from potential association candidates.
+
+The ER diagram is an initial design and will be refined in later milestones.
