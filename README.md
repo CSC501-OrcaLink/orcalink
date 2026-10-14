@@ -27,5 +27,6 @@ Data files will only be included in this repository where sharing is permitted.
 
 # Reports
 - [Milestone 1: Project Proposal](reports/01_proposal/1_Proposal_Aung_Bowen.pdf)
+- [Milestone 2: Background](reports/02_background/02_Background_Aung_Bowen.pdf)
 
 Project reports, source notes, diagrams, and preprocessing code will be added as the project progresses.
