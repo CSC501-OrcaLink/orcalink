@@ -1,0 +1,41 @@
+{
+  "validation": [
+    {
+      "table": "historical_sightings_all.csv",
+      "rows": 117880,
+      "all_original_columns_retained": true,
+      "original_cell_values_unchanged": true
+    },
+    {
+      "table": "individual_observations_all.csv",
+      "rows": 35042,
+      "all_original_columns_retained": true,
+      "original_cell_values_unchanged": true
+    },
+    {
+      "table": "j_lifespans_all.csv",
+      "rows": 130,
+      "all_original_columns_retained": true,
+      "original_cell_values_unchanged": true
+    }
+  ],
+  "id_categories": {
+    "named J ID": 22150,
+    "missing ID": 9743,
+    "unresolved u label": 3149
+  },
+  "museum_exact_repeated_rows": 1057,
+  "observation_exact_repeated_rows": 8175,
+  "museum_unparsed_dates": 0,
+  "museum_unparsed_nonblank_times": 4,
+  "observation_unparsed_datetimes": 0,
+  "named_j_before_birth_review_flags": 358,
+  "named_j_after_death_review_flags": 0,
+  "sighting_groups": 5941,
+  "multi_named_j_candidate_groups": 1332,
+  "source_sha256": {
+    "Htut_UniversityOfVictoria_9.2026.csv": "c386a3d92676b5792577c876de66593577d39b9bc8776184f243f83a3e04fd96",
+    "Copy of data_in.xlsx": "d3ca1c79ca824d4c505ba6c5638bda098e7a54bb06e94e981997a0e5b2ea70a6",
+    "Copy of lifespans_J.xlsx": "cbbc67496c275cf77344428c1cc3fa2b52c9935ca37eac9c5c53ffe8dc66f3cd"
+  }
+}
