@@ -1,0 +1,156 @@
+table,column,origin,description
+historical_sightings_all.csv,record_id,derived,Generated row identifier for traceability; not a biological identifier.
+historical_sightings_all.csv,source_file,derived,Derived preprocessing field; see preprocess.py for exact definition.
+historical_sightings_all.csv,source_row,derived,Row in input including header as row 1.
+historical_sightings_all.csv,SightDate,original,Original input field; value preserved. See provider documentation for semantics.
+historical_sightings_all.csv,Time1,original,Original input field; value preserved. See provider documentation for semantics.
+historical_sightings_all.csv,Month,original,Original input field; value preserved. See provider documentation for semantics.
+historical_sightings_all.csv,Day,original,Original input field; value preserved. See provider documentation for semantics.
+historical_sightings_all.csv,Year,original,Original input field; value preserved. See provider documentation for semantics.
+historical_sightings_all.csv,Pod,original,Original input field; value preserved. See provider documentation for semantics.
+historical_sightings_all.csv,LikelyPod,original,Original input field; value preserved. See provider documentation for semantics.
+historical_sightings_all.csv,Direction,original,Original input field; value preserved. See provider documentation for semantics.
+historical_sightings_all.csv,FishArea,original,Original input field; value preserved. See provider documentation for semantics.
+historical_sightings_all.csv,Quadrant,original,Original input field; value preserved. See provider documentation for semantics.
+historical_sightings_all.csv,Lat,original,Original input field; value preserved. See provider documentation for semantics.
+historical_sightings_all.csv,Long,original,Original input field; value preserved. See provider documentation for semantics.
+historical_sightings_all.csv,UTMx,original,Original input field; value preserved. See provider documentation for semantics.
+historical_sightings_all.csv,UTMy,original,Original input field; value preserved. See provider documentation for semantics.
+historical_sightings_all.csv,Source,original,Original input field; value preserved. See provider documentation for semantics.
+historical_sightings_all.csv,ActLat,original,Original input field; value preserved. See provider documentation for semantics.
+historical_sightings_all.csv,ActLong,original,Original input field; value preserved. See provider documentation for semantics.
+historical_sightings_all.csv,exact_duplicate_of_earlier_row,derived,"Exact repeated input row; retained, not automatically deleted."
+historical_sightings_all.csv,sighting_date,derived,Derived preprocessing field; see preprocess.py for exact definition.
+historical_sightings_all.csv,date_parse_failed,derived,Derived preprocessing field; see preprocess.py for exact definition.
+historical_sightings_all.csv,reported_group,derived,Derived preprocessing field; see preprocess.py for exact definition.
+historical_sightings_all.csv,likely_group,derived,Derived preprocessing field; see preprocess.py for exact definition.
+historical_sightings_all.csv,report_source,derived,Derived preprocessing field; see preprocess.py for exact definition.
+historical_sightings_all.csv,sighting_time,derived,Derived preprocessing field; see preprocess.py for exact definition.
+historical_sightings_all.csv,time_parse_failed,derived,Derived preprocessing field; see preprocess.py for exact definition.
+historical_sightings_all.csv,time_zone,derived,Museum time zone not supplied; local times are not converted to UTC.
+historical_sightings_all.csv,latitude,derived,Derived preprocessing field; see preprocess.py for exact definition.
+historical_sightings_all.csv,longitude,derived,Derived preprocessing field; see preprocess.py for exact definition.
+historical_sightings_all.csv,alternate_latitude,derived,Derived preprocessing field; see preprocess.py for exact definition.
+historical_sightings_all.csv,alternate_longitude,derived,Derived preprocessing field; see preprocess.py for exact definition.
+historical_sightings_all.csv,utm_x,derived,Derived preprocessing field; see preprocess.py for exact definition.
+historical_sightings_all.csv,utm_y,derived,Derived preprocessing field; see preprocess.py for exact definition.
+historical_sightings_all.csv,valid_primary_coordinates,derived,Numeric in-range nonzero Lat/Long; does not establish geographical accuracy.
+historical_sightings_all.csv,valid_alternate_coordinates,derived,Numeric in-range nonzero ActLat/ActLong; not substituted for primary fields.
+historical_sightings_all.csv,j_label_mention,derived,Text flag only. J occurs in Pod or LikelyPod; not confirmed J membership.
+historical_sightings_all.csv,identification_level,derived,Derived preprocessing field; see preprocess.py for exact definition.
+individual_observations_all.csv,record_id,derived,Generated row identifier for traceability; not a biological identifier.
+individual_observations_all.csv,source_file,derived,Derived preprocessing field; see preprocess.py for exact definition.
+individual_observations_all.csv,source_row,derived,Row in input including header as row 1.
+individual_observations_all.csv,x_km,original,Original input field; value preserved. See provider documentation for semantics.
+individual_observations_all.csv,y_km,original,Original input field; value preserved. See provider documentation for semantics.
+individual_observations_all.csv,DateTime,original,Original input field; value preserved. See provider documentation for semantics.
+individual_observations_all.csv,ID,original,Original input field; value preserved. See provider documentation for semantics.
+individual_observations_all.csv,sighting_id,original,Original input field; value preserved. See provider documentation for semantics.
+individual_observations_all.csv,drone,original,Original input field; value preserved. See provider documentation for semantics.
+individual_observations_all.csv,acoustic,original,Original input field; value preserved. See provider documentation for semantics.
+individual_observations_all.csv,robust,original,Original input field; value preserved. See provider documentation for semantics.
+individual_observations_all.csv,theodolite,original,Original input field; value preserved. See provider documentation for semantics.
+individual_observations_all.csv,DateTimeRounded,original,Original input field; value preserved. See provider documentation for semantics.
+individual_observations_all.csv,DateTimeJitter,original,Original input field; value preserved. See provider documentation for semantics.
+individual_observations_all.csv,sid_rounded,original,Original input field; value preserved. See provider documentation for semantics.
+individual_observations_all.csv,exact_duplicate_of_earlier_row,derived,"Exact repeated input row; retained, not automatically deleted."
+individual_observations_all.csv,whale_id,derived,Derived preprocessing field; see preprocess.py for exact definition.
+individual_observations_all.csv,id_category,derived,Derived preprocessing field; see preprocess.py for exact definition.
+individual_observations_all.csv,source_sighting_id,derived,Original sighting_id with surrounding whitespace removed.
+individual_observations_all.csv,sighting_key,derived,Dataset namespace plus exact original sighting ID; no cross-provider match implied.
+individual_observations_all.csv,datetime_utc_shifted,derived,"Parsed DateTime; UTC label retained from source, values remain obfuscated."
+individual_observations_all.csv,datetime_parse_failed,derived,Derived preprocessing field; see preprocess.py for exact definition.
+individual_observations_all.csv,x_km_numeric,derived,Derived preprocessing field; see preprocess.py for exact definition.
+individual_observations_all.csv,y_km_numeric,derived,Derived preprocessing field; see preprocess.py for exact definition.
+individual_observations_all.csv,timestamps_shifted,derived,Derived preprocessing field; see preprocess.py for exact definition.
+individual_observations_all.csv,coordinates_shifted,derived,Derived preprocessing field; see preprocess.py for exact definition.
+individual_observations_all.csv,identification_status,derived,Individual confirmation/inference cannot be determined from these inputs per row.
+individual_observations_all.csv,identification_basis,derived,Not inferred from method flags or ID presence.
+individual_observations_all.csv,birth_date,derived,Parsed birth with 2050 sentinel omitted; original birth retained.
+individual_observations_all.csv,death_datetime,derived,Parsed death with 2050 sentinel omitted; original death retained.
+individual_observations_all.csv,birth_status,derived,Derived preprocessing field; see preprocess.py for exact definition.
+individual_observations_all.csv,death_status,derived,Derived preprocessing field; see preprocess.py for exact definition.
+individual_observations_all.csv,lifespan_match,derived,Derived preprocessing field; see preprocess.py for exact definition.
+individual_observations_all.csv,lifespan_record_id,derived,Derived preprocessing field; see preprocess.py for exact definition.
+individual_observations_all.csv,before_supplied_birth_date,derived,Review flag using shifted observation date and supplied birth date; not grounds for deletion.
+individual_observations_all.csv,after_supplied_death_date,derived,Review flag using shifted observation date and supplied death date; not grounds for deletion.
+individual_observations_all.csv,lifespan_comparison_available,derived,At least one supplied non-sentinel lifespan bound and a parsed observation date.
+individual_observations_all.csv,candidate_named_j,derived,Named J ID and nonblank exact source sighting ID; not individually confirmed.
+individual_observations_all.csv,repeated_named_id_in_sighting,derived,Derived preprocessing field; see preprocess.py for exact definition.
+j_lifespans_all.csv,record_id,derived,Generated row identifier for traceability; not a biological identifier.
+j_lifespans_all.csv,source_file,derived,Derived preprocessing field; see preprocess.py for exact definition.
+j_lifespans_all.csv,source_row,derived,Row in input including header as row 1.
+j_lifespans_all.csv,id,original,Original input field; value preserved. See provider documentation for semantics.
+j_lifespans_all.csv,birth,original,Original input field; value preserved. See provider documentation for semantics.
+j_lifespans_all.csv,death,original,Original input field; value preserved. See provider documentation for semantics.
+j_lifespans_all.csv,exact_duplicate_of_earlier_row,derived,"Exact repeated input row; retained, not automatically deleted."
+j_lifespans_all.csv,whale_id,derived,Derived preprocessing field; see preprocess.py for exact definition.
+j_lifespans_all.csv,birth_is_2050_sentinel,derived,Derived preprocessing field; see preprocess.py for exact definition.
+j_lifespans_all.csv,death_is_2050_sentinel,derived,Derived preprocessing field; see preprocess.py for exact definition.
+j_lifespans_all.csv,birth_date,derived,Parsed birth with 2050 sentinel omitted; original birth retained.
+j_lifespans_all.csv,death_datetime,derived,Parsed death with 2050 sentinel omitted; original death retained.
+j_lifespans_all.csv,birth_status,derived,Derived preprocessing field; see preprocess.py for exact definition.
+j_lifespans_all.csv,death_status,derived,Derived preprocessing field; see preprocess.py for exact definition.
+j_named_observations.csv,record_id,derived,Generated row identifier for traceability; not a biological identifier.
+j_named_observations.csv,source_file,derived,Derived preprocessing field; see preprocess.py for exact definition.
+j_named_observations.csv,source_row,derived,Row in input including header as row 1.
+j_named_observations.csv,x_km,original,Original input field; value preserved. See provider documentation for semantics.
+j_named_observations.csv,y_km,original,Original input field; value preserved. See provider documentation for semantics.
+j_named_observations.csv,DateTime,original,Original input field; value preserved. See provider documentation for semantics.
+j_named_observations.csv,ID,original,Original input field; value preserved. See provider documentation for semantics.
+j_named_observations.csv,sighting_id,original,Original input field; value preserved. See provider documentation for semantics.
+j_named_observations.csv,drone,original,Original input field; value preserved. See provider documentation for semantics.
+j_named_observations.csv,acoustic,original,Original input field; value preserved. See provider documentation for semantics.
+j_named_observations.csv,robust,original,Original input field; value preserved. See provider documentation for semantics.
+j_named_observations.csv,theodolite,original,Original input field; value preserved. See provider documentation for semantics.
+j_named_observations.csv,DateTimeRounded,original,Original input field; value preserved. See provider documentation for semantics.
+j_named_observations.csv,DateTimeJitter,original,Original input field; value preserved. See provider documentation for semantics.
+j_named_observations.csv,sid_rounded,original,Original input field; value preserved. See provider documentation for semantics.
+j_named_observations.csv,exact_duplicate_of_earlier_row,derived,"Exact repeated input row; retained, not automatically deleted."
+j_named_observations.csv,whale_id,derived,Derived preprocessing field; see preprocess.py for exact definition.
+j_named_observations.csv,id_category,derived,Derived preprocessing field; see preprocess.py for exact definition.
+j_named_observations.csv,source_sighting_id,derived,Original sighting_id with surrounding whitespace removed.
+j_named_observations.csv,sighting_key,derived,Dataset namespace plus exact original sighting ID; no cross-provider match implied.
+j_named_observations.csv,datetime_utc_shifted,derived,"Parsed DateTime; UTC label retained from source, values remain obfuscated."
+j_named_observations.csv,datetime_parse_failed,derived,Derived preprocessing field; see preprocess.py for exact definition.
+j_named_observations.csv,x_km_numeric,derived,Derived preprocessing field; see preprocess.py for exact definition.
+j_named_observations.csv,y_km_numeric,derived,Derived preprocessing field; see preprocess.py for exact definition.
+j_named_observations.csv,timestamps_shifted,derived,Derived preprocessing field; see preprocess.py for exact definition.
+j_named_observations.csv,coordinates_shifted,derived,Derived preprocessing field; see preprocess.py for exact definition.
+j_named_observations.csv,identification_status,derived,Individual confirmation/inference cannot be determined from these inputs per row.
+j_named_observations.csv,identification_basis,derived,Not inferred from method flags or ID presence.
+j_named_observations.csv,birth_date,derived,Parsed birth with 2050 sentinel omitted; original birth retained.
+j_named_observations.csv,death_datetime,derived,Parsed death with 2050 sentinel omitted; original death retained.
+j_named_observations.csv,birth_status,derived,Derived preprocessing field; see preprocess.py for exact definition.
+j_named_observations.csv,death_status,derived,Derived preprocessing field; see preprocess.py for exact definition.
+j_named_observations.csv,lifespan_match,derived,Derived preprocessing field; see preprocess.py for exact definition.
+j_named_observations.csv,lifespan_record_id,derived,Derived preprocessing field; see preprocess.py for exact definition.
+j_named_observations.csv,before_supplied_birth_date,derived,Review flag using shifted observation date and supplied birth date; not grounds for deletion.
+j_named_observations.csv,after_supplied_death_date,derived,Review flag using shifted observation date and supplied death date; not grounds for deletion.
+j_named_observations.csv,lifespan_comparison_available,derived,At least one supplied non-sentinel lifespan bound and a parsed observation date.
+j_named_observations.csv,candidate_named_j,derived,Named J ID and nonblank exact source sighting ID; not individually confirmed.
+j_named_observations.csv,repeated_named_id_in_sighting,derived,Derived preprocessing field; see preprocess.py for exact definition.
+dryad_sighting_groups.csv,sighting_key,derived,Dataset namespace plus exact original sighting ID; no cross-provider match implied.
+dryad_sighting_groups.csv,source_sighting_id,derived,Original sighting_id with surrounding whitespace removed.
+dryad_sighting_groups.csv,row_count,derived,Derived preprocessing field; see preprocess.py for exact definition.
+dryad_sighting_groups.csv,named_j_count,derived,Derived preprocessing field; see preprocess.py for exact definition.
+dryad_sighting_groups.csv,named_j_ids,derived,Derived preprocessing field; see preprocess.py for exact definition.
+dryad_sighting_groups.csv,missing_id_row_count,derived,Derived preprocessing field; see preprocess.py for exact definition.
+dryad_sighting_groups.csv,unresolved_label_row_count,derived,Derived preprocessing field; see preprocess.py for exact definition.
+dryad_sighting_groups.csv,has_two_named_j_candidates,derived,Derived preprocessing field; see preprocess.py for exact definition.
+dryad_sighting_groups.csv,distinct_datetime_count,derived,Derived preprocessing field; see preprocess.py for exact definition.
+dryad_sighting_groups.csv,distinct_xy_count,derived,Derived preprocessing field; see preprocess.py for exact definition.
+dryad_sighting_groups.csv,datetime_utc_shifted,derived,"Parsed DateTime; UTC label retained from source, values remain obfuscated."
+dryad_sighting_groups.csv,datetime_utc_shifted_conflict,derived,Derived preprocessing field; see preprocess.py for exact definition.
+dryad_sighting_groups.csv,x_km,derived,Derived preprocessing field; see preprocess.py for exact definition.
+dryad_sighting_groups.csv,x_km_conflict,derived,Derived preprocessing field; see preprocess.py for exact definition.
+dryad_sighting_groups.csv,y_km,derived,Derived preprocessing field; see preprocess.py for exact definition.
+dryad_sighting_groups.csv,y_km_conflict,derived,Derived preprocessing field; see preprocess.py for exact definition.
+dryad_sighting_groups.csv,drone,derived,Derived preprocessing field; see preprocess.py for exact definition.
+dryad_sighting_groups.csv,drone_conflict,derived,Derived preprocessing field; see preprocess.py for exact definition.
+dryad_sighting_groups.csv,acoustic,derived,Derived preprocessing field; see preprocess.py for exact definition.
+dryad_sighting_groups.csv,acoustic_conflict,derived,Derived preprocessing field; see preprocess.py for exact definition.
+dryad_sighting_groups.csv,robust,derived,Derived preprocessing field; see preprocess.py for exact definition.
+dryad_sighting_groups.csv,robust_conflict,derived,Derived preprocessing field; see preprocess.py for exact definition.
+dryad_sighting_groups.csv,theodolite,derived,Derived preprocessing field; see preprocess.py for exact definition.
+dryad_sighting_groups.csv,theodolite_conflict,derived,Derived preprocessing field; see preprocess.py for exact definition.
