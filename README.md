@@ -10,6 +10,7 @@ The model will distinguish family relationships from recorded co-sightings. Whal
 # Team
 - Aung Htut
 - Bowen Zhang
+- Sophia Umukoro
 
 # Current Progres
 - Completed the project proposal.
