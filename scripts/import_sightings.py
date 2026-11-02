@@ -1,9 +1,11 @@
 import csv
 import os
 import sqlite3
+import sys
+
 
 BASE = "data/processed/data/"
-DB = "orcalink.db"
+DB = sys.argv[1] if len(sys.argv) > 1 else "part2_test.db"
 HIST = BASE + "historical_sightings_all.csv"
 DRYAD = BASE + "dryad_sighting_groups.csv"
 SCHEMA = "sql/create_tables.sql"
@@ -118,11 +120,7 @@ def import_dryad(conn, source_id, cache):
             loaded += 1
     return loaded
 
-def main():
-    if os.path.exists(DB):
-        os.remove(DB)   # rebuild from scratch each run
-    conn = sqlite3.connect(DB)
-    conn.execute("PRAGMA foreign_keys = ON")
+def create_and_load(conn):
     with open(SCHEMA, encoding="utf-8") as f:
         conn.executescript(f.read())
     ids = {}
@@ -136,10 +134,18 @@ def main():
     d = import_dryad(conn, ids["DRYAD"], cache)
     conn.commit()
     n_loc = conn.execute("SELECT COUNT(*) FROM Location").fetchone()[0]
-    conn.close()
     print("historical loaded / duplicates skipped:", h)
     print("dryad loaded:", d)
     print("locations created:", n_loc)
+
+def main():
+    standalone = len(sys.argv) == 1
+    if standalone and os.path.exists(DB):
+        os.remove(DB)          # only ever deletes your own test file
+    conn = sqlite3.connect(DB)
+    conn.execute("PRAGMA foreign_keys = ON")
+    create_and_load(conn)
+    conn.close()
 
 if __name__ == "__main__":
     main()
