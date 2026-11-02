@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OrcaLink — Whales</title>
+  <style>
+    * { 
+      box-sizing: border-box; 
+    }
+
+    body { 
+        margin: 0; 
+        font-family: Arial, sans-serif; 
+        color: #23333a; 
+        background: #f4f7f7; 
+      }
+      
+    /* Header styling */
+    header { 
+      background: #153c49; 
+      color: white; 
+      padding: 18px 7%; 
+      display: flex; 
+      align-items: center; 
+      gap: 15px; 
+    }
+
+    header img { 
+      width: 62px; 
+      height: 62px; 
+      object-fit: contain; 
+    }
+
+    header h1 { 
+      margin: 0; 
+      font-size: 26px; 
+    }
+
+    header p { 
+      margin: 4px 0 0; 
+      font-size: 13px; 
+      color: #c8dadf; 
+    }
+
+    main { 
+      max-width: 1100px; 
+      margin: 28px auto; 
+      padding: 0 18px; 
+    }
+
+    /* Main page layout */
+    .layout { 
+      display: grid;
+      grid-template-columns: 310px minmax(0, 1fr);
+      gap: 20px;
+      align-items: start; 
+    }
+
+    .panel { 
+      background: white; 
+      border: 1px solid #dbe3e5; 
+      border-radius: 10px; 
+      padding: 20px; 
+      min-width: 0;
+    }
+
+    h2 { 
+      margin: 0 0 16px; 
+      font-size: 19px; 
+    }
+
+    label { 
+      display: block; 
+      margin: 11px 0 5px; 
+      font-size: 13px; 
+      font-weight: bold; 
+    }
+
+    /* Form inputs */
+    input, textarea {
+        width: 100%;
+        min-width: 0;
+        padding: 10px;
+        border: 1px solid #cbd6d9;
+        border-radius: 6px;
+        font: inherit;
+    }
+
+    textarea { 
+      min-height: 62px; 
+      resize: vertical; 
+    }
+
+    button { 
+      background: #216f74; 
+      color: white; 
+      padding: 10px 15px; 
+      border: 0; 
+      border-radius: 6px; 
+      cursor: pointer; 
+      font-weight: bold; 
+    }
+
+    button:hover { 
+      background: #185a5e; 
+    }
+
+    /* Delete buttons */
+    .danger {
+        background: #a64646;
+    }
+
+    .danger:hover {
+        background: #863535;
+    }
+
+    .edit > .danger {
+        margin-top: 10px;
+    }
+
+    .message { 
+      background: #e5f3f0; 
+      border: 1px solid #c7e3dd; 
+      padding: 12px 16px; 
+      border-radius: 7px; 
+      margin-bottom: 20px; 
+    }
+
+    .search { 
+      display: flex; 
+      gap: 10px; 
+      margin-bottom: 16px; 
+    }
+
+    .search input { 
+      flex: 1; 
+    }
+
+    .count { 
+      color: #66777e; 
+      font-size: 13px; 
+      margin-bottom: 12px; 
+    }
+
+    details { 
+      border-top: 1px solid #e4eaeb; 
+      padding: 12px 0; 
+    }
+
+    summary { 
+      cursor: pointer; 
+      display: flex; 
+      justify-content: space-between; 
+      gap: 10px; 
+    }
+
+    summary span { 
+      color: #65777d; 
+      font-size: 13px; 
+    }
+
+    .edit { 
+      padding-top: 12px; 
+    }
+
+    /* Two-column fields */
+    .two { 
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    /* Stack date fields in the add form */
+    .add-panel .two {
+      grid-template-columns: 1fr;
+    }
+
+    /* Delete popup */
+    dialog {
+        width: 400px;
+        max-width: 90%;
+        border: none;
+        border-radius: 12px;
+        padding: 24px;
+        color: #23333a;
+        box-shadow: 0 10px 40px #0003;
+    }
+
+    dialog::backdrop {
+        background: #0008;
+    }
+
+    .secondary {
+        background: #e7eeee;
+        color: #23333a;
+    }
+
+    .secondary:hover {
+        background: #dbe6e7;
+    }
+
+    /* Popup buttons */
+    .popup-buttons {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    /* Pages */
+    .pages {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+        padding-top: 15px;
+        border-top: 1px solid #e4eaeb;
+    }
+
+    .pages a {
+        color: #216f74;
+        text-decoration: none;
+    }
+
+    /* Smaller screens */
+    @media (max-width: 750px) {
+      .layout { 
+          grid-template-columns: 1fr; 
+        } 
+        .two {
+            grid-template-columns: 1fr;
+        }
+        header { 
+          padding: 15px 18px; 
+        } 
+      }
+  </style>
+</head>
+<body>
+  <!-- OrcaLink logo and page title -->
+  <header>
+
+    <img src="{{ url_for('static', filename='OrcaLink_Logo.png') }}" alt="OrcaLink logo">
+    
+    <div>
+      <h1>OrcaLink</h1>
+      <p>Whale Records · Milestone 4</p>
+    </div>
+
+  </header>
+
+  <main>
+
+    {% if message %}<p class="message">{{ message }}</p>{% endif %}
+    <div class="layout">
+
+      <!-- Form for adding a new whale to the database -->
+      <section class="panel add-panel">
+        <h2>Add a whale</h2>
+
+        <form method="post">
+          <input type="hidden" name="action" value="add">
+
+          <label>Whale code *</label>
+          <input name="code" placeholder="e.g. TEST_UI" required>
+
+          <label>Name</label>
+          <input name="name">
+
+          <label>Sex</label>
+          <input name="sex">
+
+          <div class="two">
+            <div><label>Birth date</label><input type="date" name="birth"></div>
+            <div><label>Death date</label><input type="date" name="death"></div>
+          </div>
+          <label>Notes</label>
+
+          <textarea name="notes"></textarea>
+
+          <p><button type="submit">Add whale</button></p>
+        </form>
+      </section>
+
+      <!-- Display and manage whale records -->
+      <section class="panel">
+        <h2>Whale records</h2>
+
+        <!-- Search whales by code or name -->
+        <form class="search" method="get">
+          <input name="search" value="{{ search }}" placeholder="Search code or name">
+          <button type="submit">Search</button>
+        </form>
+
+        <div class="count">{{ total }} record(s) found</div>
+
+        <!-- Display each whale with an expandable edit form -->
+        
+        <!-- Display each whale with an expandable edit form -->
+        {% for w in whales %}
+        <details>
+          <summary>
+            <strong>{{ w['whale_code'] }}</strong>
+            <span>{{ w['name'] or 'Name not available' }} · Edit</span>
+          </summary>
+
+          <div class="edit">
+            <form method="post">
+              <input type="hidden" name="action" value="edit">
+              <input type="hidden" name="id" value="{{ w['whale_id'] }}">
+
+              <label>Name</label>
+              <input name="name" value="{{ w['name'] or '' }}">
+
+              <label>Sex</label>
+              <input name="sex" value="{{ w['sex'] or '' }}">
+
+              <div class="two">
+                <div>
+                  <label>Birth date</label>
+                  <input type="date" name="birth" value="{{ w['birth_date'] or '' }}">
+                </div>
+                <div>
+                  <label>Death date</label>
+                  <input type="date" name="death" value="{{ w['death_date'] or '' }}">
+                </div>
+              </div>
+
+              <label>Notes</label>
+              <textarea name="notes">{{ w['notes'] or '' }}</textarea>
+
+              <p><button type="submit">Save changes</button></p>
+            </form>
+
+            <!-- Open the delete confirmation popup -->
+            <button
+              class="danger"
+              type="button"
+              data-id="{{ w['whale_id'] }}"
+              data-code="{{ w['whale_code'] }}"
+              onclick="openDelete(this.dataset.id, this.dataset.code)">
+              Delete whale
+            </button>
+          </div>
+        </details>
+        {% else %}
+        <p>No whales found.</p>
+        {% endfor %}
+
+
+        <!-- Page navigation -->
+        {% if last_page > 1 %}
+        <nav class="pages">
+
+            {% if page > 1 %}
+                <a href="{{ url_for('home', page=page-1, search=search) }}">
+                    Previous
+                </a>
+            {% else %}
+                <span></span>
+            {% endif %}
+
+            <span>Page {{ page }} of {{ last_page }}</span>
+
+            {% if page < last_page %}
+                <a href="{{ url_for('home', page=page+1, search=search) }}">
+                    Next
+                </a>
+            {% else %}
+                <span></span>
+            {% endif %}
+
+        </nav>
+        {% endif %}
+
+      </section>
+    </div>
+  </main>
+
+<!-- Delete confirmation popup -->
+<dialog id="deleteDialog">
+  <h2>Delete whale?</h2>
+  <p>
+      Are you sure you want to delete
+      <strong id="deleteCode"></strong>?
+  </p>
+
+  <p>This action cannot be undone.</p>
+
+  <form method="post">
+      <input type="hidden" name="action" value="delete">
+      <input type="hidden" name="id" id="deleteId">
+
+      <div class="popup-buttons">
+          <button type="button" class="secondary"
+                  onclick="document.getElementById('deleteDialog').close()">
+              Cancel
+          </button>
+
+          <button type="submit" class="danger">
+              Yes, delete
+          </button>
+      </div>
+  </form>
+</dialog>
+
+<script>
+  // Open the popup and show the selected whale's code.
+  function openDelete(id, code) {
+      document.getElementById("deleteId").value = id;
+      document.getElementById("deleteCode").textContent = code;
+      document.getElementById("deleteDialog").showModal();
+  }
+</script>
+
+</body>
+</html>
