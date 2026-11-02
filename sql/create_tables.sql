@@ -1,47 +1,59 @@
 PRAGMA foreign_keys = ON;
 
 CREATE TABLE DataSource (
-    source_id    INTEGER PRIMARY KEY,
-    name         TEXT NOT NULL UNIQUE,
-    description  TEXT,
-    url          TEXT
+    Id          INTEGER PRIMARY KEY AUTOINCREMENT,
+    Name        TEXT NOT NULL,
+    Description TEXT,
+    Url         TEXT,
+
+    CONSTRAINT UK_DataSource_Name UNIQUE (Name)
 );
 
 CREATE TABLE Location (
-    location_id         INTEGER PRIMARY KEY,
-    fish_area           TEXT,
-    quadrant            TEXT,
-    latitude            REAL,
-    longitude           REAL,
-    alternate_latitude  REAL,
-    alternate_longitude REAL,
-    utm_x               REAL,
-    utm_y               REAL,
-    dryad_x_km          REAL,
-    dryad_y_km          REAL,
-    CHECK (latitude  IS NULL OR latitude  BETWEEN -90  AND 90),
-    CHECK (longitude IS NULL OR longitude BETWEEN -180 AND 180),
-    CHECK (alternate_latitude  IS NULL OR alternate_latitude  BETWEEN -90  AND 90),
-    CHECK (alternate_longitude IS NULL OR alternate_longitude BETWEEN -180 AND 180)
+    Id                INTEGER PRIMARY KEY AUTOINCREMENT,
+    FishArea          TEXT,
+    Quadrant          TEXT,
+    Latitude          REAL,
+    Longitude         REAL,
+    AlternateLatitude REAL,
+    AlternateLongitude REAL,
+    UtmX              REAL,
+    UtmY              REAL,
+    DryadXKm          REAL,
+    DryadYKm          REAL,
+    CHECK (Latitude IS NULL OR Latitude BETWEEN -90 AND 90),
+    CHECK (Longitude IS NULL OR Longitude BETWEEN -180 AND 180),
+    CHECK (AlternateLatitude IS NULL OR AlternateLatitude BETWEEN -90 AND 90),
+    CHECK (AlternateLongitude IS NULL OR AlternateLongitude BETWEEN -180 AND 180)
 );
 
 CREATE TABLE Sighting (
-    sighting_id       INTEGER PRIMARY KEY,
-    sighting_key      TEXT NOT NULL UNIQUE,
-    source_id         INTEGER NOT NULL REFERENCES DataSource(source_id),
-    source_record_id  TEXT NOT NULL,
-    source_detail     TEXT,
-    source_file       TEXT,
-    source_row        INTEGER,
-    sighting_date     TEXT,
-    sighting_time     TEXT,
-    time_zone         TEXT,
-    is_shifted        INTEGER NOT NULL DEFAULT 0 CHECK (is_shifted IN (0,1)),
-    date_parse_failed INTEGER NOT NULL DEFAULT 0 CHECK (date_parse_failed IN (0,1)),
-    time_parse_failed INTEGER NOT NULL DEFAULT 0 CHECK (time_parse_failed IN (0,1)),
-    location_id       INTEGER REFERENCES Location(location_id),
-    obs_methods       TEXT,
-    has_conflict      INTEGER NOT NULL DEFAULT 0 CHECK (has_conflict IN (0,1)),
-    conflict_fields   TEXT,
-    UNIQUE (source_id, source_record_id)
+    Id               INTEGER PRIMARY KEY AUTOINCREMENT,
+    SightingKey      TEXT NOT NULL,
+    DataSourceId     INTEGER NOT NULL,
+    SourceRecordId   TEXT NOT NULL,
+    SourceDetail     TEXT,
+    SourceFile       TEXT,
+    SourceRow        INTEGER,
+    SightingDate     TEXT,
+    SightingTime     TEXT,
+    TimeZone         TEXT,
+    IsShifted        INTEGER NOT NULL DEFAULT 0 CHECK (IsShifted IN (0,1)),
+    DateParseFailed  INTEGER NOT NULL DEFAULT 0 CHECK (DateParseFailed IN (0,1)),
+    TimeParseFailed  INTEGER NOT NULL DEFAULT 0 CHECK (TimeParseFailed IN (0,1)),
+    LocationId       INTEGER,
+    ObsMethods       TEXT,
+    HasConflict      INTEGER NOT NULL DEFAULT 0 CHECK (HasConflict IN (0,1)),
+    ConflictFields   TEXT,
+    CONSTRAINT UK_Sighting_SightingKey UNIQUE (SightingKey),
+    CONSTRAINT UK_Sighting_DataSourceId_SourceRecordId
+        UNIQUE (DataSourceId, SourceRecordId),
+
+    CONSTRAINT FK_Sighting_DataSourceId_2_DataSource_Id
+        FOREIGN KEY (DataSourceId)
+        REFERENCES DataSource(Id),
+
+    CONSTRAINT FK_Sighting_LocationId_2_Location_Id
+        FOREIGN KEY (LocationId)
+        REFERENCES Location(Id)
 );

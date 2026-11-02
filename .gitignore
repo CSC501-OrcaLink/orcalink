@@ -218,3 +218,8 @@ __marimo__/
 .streamlit/secrets.toml
 orcalink.db
 part2_test.db
+# Local databases
+part2_full.db
+
+# macOS metadata
+.DS_Store

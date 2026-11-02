@@ -36,19 +36,26 @@ def get_location(conn, cache, **vals):
     if key not in cache:
         cols = ", ".join(vals)
         marks = ", ".join(f":{c}" for c in vals)
-        cur = conn.execute(f"INSERT INTO Location ({cols}) VALUES ({marks})", vals)
+        cur = conn.execute(
+            f"INSERT INTO Location ({cols}) VALUES ({marks})",
+            vals
+        )
         cache[key] = cur.lastrowid
     return cache[key]
 
 INSERT_SIGHTING = """
-INSERT INTO Sighting (sighting_key, source_id, source_record_id, source_detail,
-    source_file, source_row, sighting_date, sighting_time, time_zone, is_shifted,
-    date_parse_failed, time_parse_failed, location_id, obs_methods,
-    has_conflict, conflict_fields)
-VALUES (:sighting_key, :source_id, :source_record_id, :source_detail,
-    :source_file, :source_row, :sighting_date, :sighting_time, :time_zone, :is_shifted,
-    :date_parse_failed, :time_parse_failed, :location_id, :obs_methods,
-    :has_conflict, :conflict_fields)
+INSERT INTO Sighting (
+    SightingKey, DataSourceId, SourceRecordId, SourceDetail,
+    SourceFile, SourceRow, SightingDate, SightingTime, TimeZone,
+    IsShifted, DateParseFailed, TimeParseFailed, LocationId,
+    ObsMethods, HasConflict, ConflictFields
+)
+VALUES (
+    :sighting_key, :source_id, :source_record_id, :source_detail,
+    :source_file, :source_row, :sighting_date, :sighting_time, :time_zone,
+    :is_shifted, :date_parse_failed, :time_parse_failed, :location_id,
+    :obs_methods, :has_conflict, :conflict_fields
+)
 """
 
 def import_historical(conn, source_id, cache):
@@ -64,27 +71,34 @@ def import_historical(conn, source_id, cache):
             alt = to_bool(r["valid_alternate_coordinates"])
             loc = get_location(
                 conn, cache,
-                fish_area=clean(r["FishArea"]), quadrant=clean(r["Quadrant"]),
-                latitude=to_float(r["latitude"]) if prim else None,
-                longitude=to_float(r["longitude"]) if prim else None,
-                alternate_latitude=to_float(r["alternate_latitude"]) if alt else None,
-                alternate_longitude=to_float(r["alternate_longitude"]) if alt else None,
-                utm_x=to_float(r["utm_x"]), utm_y=to_float(r["utm_y"]),
+                FishArea=clean(r["FishArea"]),
+                Quadrant=clean(r["Quadrant"]),
+                Latitude=to_float(r["latitude"]) if prim else None,
+                Longitude=to_float(r["longitude"]) if prim else None,
+                AlternateLatitude=to_float(r["alternate_latitude"]) if alt else None,
+                AlternateLongitude=to_float(r["alternate_longitude"]) if alt else None,
+                UtmX=to_float(r["utm_x"]),
+                UtmY=to_float(r["utm_y"]),
             )
             d_failed = to_bool(r["date_parse_failed"])
             t_failed = to_bool(r["time_parse_failed"])
             conn.execute(INSERT_SIGHTING, {
-                "sighting_key": r["record_id"], "source_id": source_id,
+                "sighting_key": r["record_id"],
+                "source_id": source_id,
                 "source_record_id": r["record_id"],
                 "source_detail": clean(r["report_source"]),
                 "source_file": clean(r["source_file"]),
                 "source_row": to_int(r["source_row"]),
                 "sighting_date": None if d_failed else clean(r["sighting_date"]),
                 "sighting_time": None if t_failed else clean(r["sighting_time"]),
-                "time_zone": clean(r["time_zone"]), "is_shifted": 0,
-                "date_parse_failed": d_failed, "time_parse_failed": t_failed,
-                "location_id": loc, "obs_methods": None,
-                "has_conflict": 0, "conflict_fields": None,
+                "time_zone": clean(r["time_zone"]),
+                "is_shifted": 0,
+                "date_parse_failed": d_failed,
+                "time_parse_failed": t_failed,
+                "location_id": loc,
+                "obs_methods": None,
+                "has_conflict": 0,
+                "conflict_fields": None,
             })
             loaded += 1
     return loaded, skipped
@@ -102,7 +116,11 @@ def import_dryad(conn, source_id, cache):
             dt = None if "datetime_utc_shifted" in conflicts else clean(r["datetime_utc_shifted"])
             x = None if "x_km" in conflicts else to_float(r["x_km"])
             y = None if "y_km" in conflicts else to_float(r["y_km"])
-            loc = get_location(conn, cache, dryad_x_km=x, dryad_y_km=y)
+            loc = get_location(
+                conn, cache,
+                DryadXKm=x,
+                DryadYKm=y
+            )
             methods = [m for m in METHODS if to_bool(r[m])]
             conn.execute(INSERT_SIGHTING, {
                 "sighting_key": r["sighting_key"], "source_id": source_id,
@@ -127,7 +145,7 @@ def create_and_load(conn):
     for name, desc in [("TWM", "Museum historical sightings"),
                        ("DRYAD", "Dryad grouped sighting data")]:
         cur = conn.execute(
-            "INSERT INTO DataSource (name, description) VALUES (?, ?)", (name, desc))
+            "INSERT INTO DataSource (Name, Description) VALUES (?, ?)", (name, desc))
         ids[name] = cur.lastrowid
     cache = {}
     h = import_historical(conn, ids["TWM"], cache)
