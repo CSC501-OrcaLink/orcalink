@@ -1,11 +1,12 @@
-
+import os
 import sqlite3
 from pathlib import Path
 from flask import Flask, render_template, request, redirect, url_for
 
-# Set up Flask and the database.
+# Set up Flask and the database
 app = Flask(__name__, static_folder="assets", static_url_path="/assets")
-DB = Path(__file__).with_name("orcalink.db")
+DB = Path(os.environ.get("ORCALINK_DB", Path(__file__).with_name("orcalink.db")))
+
 
 def open_db():
     db = sqlite3.connect(DB)
@@ -13,17 +14,18 @@ def open_db():
     db.execute("PRAGMA foreign_keys = ON")
     return db
 
+
 @app.route("/", methods=["GET", "POST"])
 def home():
     db = open_db()
 
-    # Add, edit, or delete a whale.
+    # Add, edit, or delete a whale
     if request.method == "POST":
         action = request.form.get("action")
         whale_id = request.form.get("id")
         code = request.form.get("code", "").strip().upper()
 
-        # Convert empty fields to NULL.
+        # Convert empty fields to NULL
         def field(name):
             return request.form.get(name, "").strip() or None
 
@@ -39,7 +41,7 @@ def home():
             if action == "add" and code:
                 db.execute("""
                     INSERT INTO Whale
-                    (whale_code, name, sex, birth_date, death_date, notes)
+                    (WhaleCode, Name, Sex, BirthDate, DeathDate, Notes)
                     VALUES (?, ?, ?, ?, ?, ?)
                 """, (code, *details))
                 message = "Whale added."
@@ -47,15 +49,15 @@ def home():
             elif action == "edit":
                 db.execute("""
                     UPDATE Whale
-                    SET name = ?, sex = ?, birth_date = ?,
-                        death_date = ?, notes = ?
-                    WHERE whale_id = ?
+                    SET Name = ?, Sex = ?, BirthDate = ?,
+                        DeathDate = ?, Notes = ?
+                    WHERE Id = ?
                 """, (*details, whale_id))
                 message = "Whale updated."
 
             elif action == "delete":
                 db.execute(
-                    "DELETE FROM Whale WHERE whale_id = ?",
+                    "DELETE FROM Whale WHERE Id = ?",
                     (whale_id,)
                 )
                 message = "Whale deleted."
@@ -72,7 +74,7 @@ def home():
         db.close()
         return redirect(url_for("home", message=message))
 
-    # Search whales and display 20 per page.
+    # Search whales and display 20 per page
     search = request.args.get("search", "").strip()
     page = max(1, request.args.get("page", 1, type=int) or 1)
     per_page = 20
@@ -81,10 +83,10 @@ def home():
     values = []
 
     if search:
-        where = " WHERE whale_code LIKE ? OR name LIKE ?"
+        where = " WHERE WhaleCode LIKE ? OR Name LIKE ?"
         values = [f"%{search}%", f"%{search}%"]
 
-    # Count the matching whales.
+    # Count the matching whales
     total = db.execute(
         "SELECT COUNT(*) FROM Whale" + where, values
     ).fetchone()[0]
@@ -92,10 +94,10 @@ def home():
     last_page = max(1, (total + per_page - 1) // per_page)
     page = min(page, last_page)
 
-    # Get the records for the current page.
+    # Get the records for the current page
     whales = db.execute(
         "SELECT * FROM Whale" + where +
-        " ORDER BY whale_code LIMIT ? OFFSET ?",
+        " ORDER BY WhaleCode LIMIT ? OFFSET ?",
         (*values, per_page, (page - 1) * per_page)
     ).fetchall()
 
@@ -110,6 +112,7 @@ def home():
         last_page=last_page,
         message=request.args.get("message", "")
     )
+
 
 if __name__ == "__main__":
     app.run(debug=True)

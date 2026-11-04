@@ -1,10 +1,10 @@
--- Store individual whale information.
+-- Store information about individual whales
 CREATE TABLE IF NOT EXISTS Whale (
-    whale_id INTEGER PRIMARY KEY,
-    whale_code TEXT NOT NULL UNIQUE,
-    name TEXT,
-    sex TEXT,
-    birth_date TEXT,
-    death_date TEXT,
-    notes TEXT
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    WhaleCode TEXT NOT NULL UNIQUE,
+    Name TEXT,
+    Sex TEXT,
+    BirthDate TEXT,
+    DeathDate TEXT,
+    Notes TEXT
 );
