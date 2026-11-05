@@ -300,34 +300,34 @@
         {% for w in whales %}
         <details>
           <summary>
-            <strong>{{ w['whale_code'] }}</strong>
-            <span>{{ w['name'] or 'Name not available' }} · Edit</span>
+            <strong>{{ w['WhaleCode'] }}</strong>
+            <span>{{ w['Name'] or 'Name not available' }} · Edit</span>
           </summary>
 
           <div class="edit">
             <form method="post">
               <input type="hidden" name="action" value="edit">
-              <input type="hidden" name="id" value="{{ w['whale_id'] }}">
+              <input type="hidden" name="id" value="{{ w['Id'] }}">
 
               <label>Name</label>
-              <input name="name" value="{{ w['name'] or '' }}">
+              <input name="name" value="{{ w['Name'] or '' }}">
 
               <label>Sex</label>
-              <input name="sex" value="{{ w['sex'] or '' }}">
+              <input name="sex" value="{{ w['Sex'] or '' }}">
 
               <div class="two">
                 <div>
                   <label>Birth date</label>
-                  <input type="date" name="birth" value="{{ w['birth_date'] or '' }}">
+                  <input type="date" name="birth" value="{{ w['BirthDate'] or '' }}">
                 </div>
                 <div>
                   <label>Death date</label>
-                  <input type="date" name="death" value="{{ w['death_date'] or '' }}">
+                  <input type="date" name="death" value="{{ w['DeathDate'] or '' }}">
                 </div>
               </div>
 
               <label>Notes</label>
-              <textarea name="notes">{{ w['notes'] or '' }}</textarea>
+              <textarea name="notes">{{ w['Notes'] or '' }}</textarea>
 
               <p><button type="submit">Save changes</button></p>
             </form>
@@ -336,8 +336,8 @@
             <button
               class="danger"
               type="button"
-              data-id="{{ w['whale_id'] }}"
-              data-code="{{ w['whale_code'] }}"
+              data-id="{{ w['Id'] }}"
+              data-code="{{ w['WhaleCode'] }}"
               onclick="openDelete(this.dataset.id, this.dataset.code)">
               Delete whale
             </button>

@@ -6,8 +6,17 @@ CREATE TABLE IF NOT EXISTS IndividualObservation (
     OriginalWhaleLabel TEXT,
     IdentificationStatus TEXT,
     IdentificationBasis TEXT,
-    SourceRecordId TEXT NOT NULL UNIQUE,
+    SourceRecordId TEXT NOT NULL,
     Notes TEXT,
-    FOREIGN KEY (SightingId) REFERENCES Sighting(Id),
-    FOREIGN KEY (WhaleId) REFERENCES Whale(Id)
+
+    CONSTRAINT UK_IndividualObservation_SourceRecordId
+        UNIQUE (SourceRecordId),
+
+    CONSTRAINT FK_IndividualObservation_SightingId_2_Sighting_Id
+        FOREIGN KEY (SightingId)
+        REFERENCES Sighting(Id),
+
+    CONSTRAINT FK_IndividualObservation_WhaleId_2_Whale_Id
+        FOREIGN KEY (WhaleId)
+        REFERENCES Whale(Id)
 );
