@@ -1,0 +1,397 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="https://github.com/CSC501-OrcaLink/orcalink/ontology#"
+     xml:base="https://github.com/CSC501-OrcaLink/orcalink/ontology"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Ontology rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Datatypes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.w3.org/2001/XMLSchema#date -->
+
+    <rdfs:Datatype rdf:about="http://www.w3.org/2001/XMLSchema#date"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- https://github.com/CSC501-OrcaLink/orcalink/ontology#atLocation -->
+
+    <owl:ObjectProperty rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#atLocation">
+        <rdfs:domain rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#Sighting"/>
+        <rdfs:range rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#Location"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://github.com/CSC501-OrcaLink/orcalink/ontology#belongsToMatriline -->
+
+    <owl:ObjectProperty rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#belongsToMatriline">
+        <rdfs:domain rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#Whale"/>
+        <rdfs:range rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#Matriline"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://github.com/CSC501-OrcaLink/orcalink/ontology#hasGroupObservation -->
+
+    <owl:ObjectProperty rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#hasGroupObservation">
+        <rdfs:domain rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#Sighting"/>
+        <rdfs:range rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#GroupObservation"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://github.com/CSC501-OrcaLink/orcalink/ontology#hasIndividualObservation -->
+
+    <owl:ObjectProperty rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#hasIndividualObservation">
+        <rdfs:domain rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#Sighting"/>
+        <rdfs:range rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#IndividualObservation"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://github.com/CSC501-OrcaLink/orcalink/ontology#hasMother -->
+
+    <owl:ObjectProperty rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#hasMother">
+        <owl:inverseOf rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#hasOffspring"/>
+        <rdfs:domain rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#Whale"/>
+        <rdfs:range rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#Whale"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://github.com/CSC501-OrcaLink/orcalink/ontology#hasOffspring -->
+
+    <owl:ObjectProperty rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#hasOffspring">
+        <rdfs:domain rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#Whale"/>
+        <rdfs:range rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#Whale"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://github.com/CSC501-OrcaLink/orcalink/ontology#hasSource -->
+
+    <owl:ObjectProperty rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#hasSource">
+        <rdfs:domain rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#Sighting"/>
+        <rdfs:range rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#DataSource"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://github.com/CSC501-OrcaLink/orcalink/ontology#hasWhaleA -->
+
+    <owl:ObjectProperty rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#hasWhaleA">
+        <rdfs:domain rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#Association"/>
+        <rdfs:range rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#Whale"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://github.com/CSC501-OrcaLink/orcalink/ontology#hasWhaleB -->
+
+    <owl:ObjectProperty rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#hasWhaleB">
+        <rdfs:domain rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#Association"/>
+        <rdfs:range rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#Whale"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://github.com/CSC501-OrcaLink/orcalink/ontology#identifiesWhale -->
+
+    <owl:ObjectProperty rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#identifiesWhale">
+        <rdfs:domain rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#IndividualObservation"/>
+        <rdfs:range rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#Whale"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- https://github.com/CSC501-OrcaLink/orcalink/ontology#associationMethod -->
+
+    <owl:DatatypeProperty rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#associationMethod">
+        <rdfs:domain rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#Association"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://github.com/CSC501-OrcaLink/orcalink/ontology#associationNotes -->
+
+    <owl:DatatypeProperty rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#associationNotes">
+        <rdfs:domain rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#Association"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://github.com/CSC501-OrcaLink/orcalink/ontology#associationScore -->
+
+    <owl:DatatypeProperty rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#associationScore">
+        <rdfs:domain rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#Association"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://github.com/CSC501-OrcaLink/orcalink/ontology#associationType -->
+
+    <owl:DatatypeProperty rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#associationType">
+        <rdfs:domain rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#Association"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://github.com/CSC501-OrcaLink/orcalink/ontology#evidencePolicy -->
+
+    <owl:DatatypeProperty rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#evidencePolicy">
+        <rdfs:domain rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#Association"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://github.com/CSC501-OrcaLink/orcalink/ontology#fishArea -->
+
+    <owl:DatatypeProperty rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#fishArea">
+        <rdfs:domain rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#Location"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://github.com/CSC501-OrcaLink/orcalink/ontology#identificationBasis -->
+
+    <owl:DatatypeProperty rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#identificationBasis">
+        <rdfs:domain rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#IndividualObservation"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://github.com/CSC501-OrcaLink/orcalink/ontology#identificationLevel -->
+
+    <owl:DatatypeProperty rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#identificationLevel">
+        <rdfs:domain rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#GroupObservation"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://github.com/CSC501-OrcaLink/orcalink/ontology#identificationStatus -->
+
+    <owl:DatatypeProperty rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#identificationStatus">
+        <rdfs:domain rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#IndividualObservation"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://github.com/CSC501-OrcaLink/orcalink/ontology#latitude -->
+
+    <owl:DatatypeProperty rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#latitude">
+        <rdfs:domain rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#Location"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://github.com/CSC501-OrcaLink/orcalink/ontology#longitude -->
+
+    <owl:DatatypeProperty rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#longitude">
+        <rdfs:domain rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#Location"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://github.com/CSC501-OrcaLink/orcalink/ontology#reportedGroup -->
+
+    <owl:DatatypeProperty rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#reportedGroup">
+        <rdfs:domain rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#GroupObservation"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://github.com/CSC501-OrcaLink/orcalink/ontology#sharedSightingCount -->
+
+    <owl:DatatypeProperty rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#sharedSightingCount">
+        <rdfs:domain rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#Association"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://github.com/CSC501-OrcaLink/orcalink/ontology#sightingDate -->
+
+    <owl:DatatypeProperty rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#sightingDate">
+        <rdfs:domain rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#Sighting"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#date"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://github.com/CSC501-OrcaLink/orcalink/ontology#sightingKey -->
+
+    <owl:DatatypeProperty rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#sightingKey">
+        <rdfs:domain rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#Sighting"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://github.com/CSC501-OrcaLink/orcalink/ontology#sourceName -->
+
+    <owl:DatatypeProperty rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#sourceName">
+        <rdfs:domain rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#DataSource"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://github.com/CSC501-OrcaLink/orcalink/ontology#whaleASightingCount -->
+
+    <owl:DatatypeProperty rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#whaleASightingCount">
+        <rdfs:domain rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#Association"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://github.com/CSC501-OrcaLink/orcalink/ontology#whaleBSightingCount -->
+
+    <owl:DatatypeProperty rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#whaleBSightingCount">
+        <rdfs:domain rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#Association"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://github.com/CSC501-OrcaLink/orcalink/ontology#whaleCode -->
+
+    <owl:DatatypeProperty rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#whaleCode">
+        <rdfs:domain rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#Whale"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- https://github.com/CSC501-OrcaLink/orcalink/ontology#Association -->
+
+    <owl:Class rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#Association"/>
+    
+
+
+    <!-- https://github.com/CSC501-OrcaLink/orcalink/ontology#DataSource -->
+
+    <owl:Class rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#DataSource"/>
+    
+
+
+    <!-- https://github.com/CSC501-OrcaLink/orcalink/ontology#GroupObservation -->
+
+    <owl:Class rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#GroupObservation"/>
+    
+
+
+    <!-- https://github.com/CSC501-OrcaLink/orcalink/ontology#IndividualObservation -->
+
+    <owl:Class rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#IndividualObservation"/>
+    
+
+
+    <!-- https://github.com/CSC501-OrcaLink/orcalink/ontology#Location -->
+
+    <owl:Class rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#Location"/>
+    
+
+
+    <!-- https://github.com/CSC501-OrcaLink/orcalink/ontology#Matriline -->
+
+    <owl:Class rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#Matriline"/>
+    
+
+
+    <!-- https://github.com/CSC501-OrcaLink/orcalink/ontology#Sighting -->
+
+    <owl:Class rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#Sighting">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#hasSource"/>
+                <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onClass rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#DataSource"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#atLocation"/>
+                <owl:maxQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxQualifiedCardinality>
+                <owl:onClass rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#Location"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <owl:hasKey rdf:parseType="Collection">
+            <rdf:Description rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#sightingKey"/>
+        </owl:hasKey>
+    </owl:Class>
+    
+
+
+    <!-- https://github.com/CSC501-OrcaLink/orcalink/ontology#Whale -->
+
+    <owl:Class rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#Whale">
+        <owl:hasKey rdf:parseType="Collection">
+            <rdf:Description rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#whaleCode"/>
+        </owl:hasKey>
+    </owl:Class>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi -->
+
