@@ -148,7 +148,7 @@ def load_data(store, path):
 
     # Repeatable execution: replace only the instance-data graph.
     store.update(
-        f"CLEAR SILENT GRAPH <{ONTOLOGY_GRAPH_IRI}>"
+        f"CLEAR SILENT GRAPH <{DATA_GRAPH_IRI}>"
     )
 
     store.load(
