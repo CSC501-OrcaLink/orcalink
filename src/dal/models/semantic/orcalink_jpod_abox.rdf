@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns="https://github.com/CSC501-OrcaLink/orcalink/ontology#"
+         xml:base="https://github.com/CSC501-OrcaLink/orcalink/ontology"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
+
+  <!-- ===== MATRILINES (6) ===== -->
+
+  <Matriline rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#matriline_J11">
+    <rdfs:label xml:lang="en">J11 matriline</rdfs:label>
+    <rdfs:seeAlso rdf:resource="https://www.whaleresearch.com/_files/ugd/760f65_8b749645e3f041019ba9e1fee6b3631e.pdf"/>
+  </Matriline>
+
+  <Matriline rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#matriline_J14">
+    <rdfs:label xml:lang="en">J14 matriline</rdfs:label>
+    <rdfs:seeAlso rdf:resource="https://www.whaleresearch.com/_files/ugd/760f65_8b749645e3f041019ba9e1fee6b3631e.pdf"/>
+  </Matriline>
+
+  <Matriline rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#matriline_J16">
+    <rdfs:label xml:lang="en">J16 matriline</rdfs:label>
+    <rdfs:seeAlso rdf:resource="https://www.whaleresearch.com/_files/ugd/760f65_8b749645e3f041019ba9e1fee6b3631e.pdf"/>
+  </Matriline>
+
+  <Matriline rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#matriline_J17">
+    <rdfs:label xml:lang="en">J17 matriline</rdfs:label>
+    <rdfs:seeAlso rdf:resource="https://www.whaleresearch.com/_files/ugd/760f65_8b749645e3f041019ba9e1fee6b3631e.pdf"/>
+  </Matriline>
+
+  <Matriline rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#matriline_J19">
+    <rdfs:label xml:lang="en">J19 matriline</rdfs:label>
+    <rdfs:seeAlso rdf:resource="https://www.whaleresearch.com/_files/ugd/760f65_8b749645e3f041019ba9e1fee6b3631e.pdf"/>
+  </Matriline>
+
+  <Matriline rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#matriline_J22">
+    <rdfs:label xml:lang="en">J22 matriline</rdfs:label>
+    <rdfs:seeAlso rdf:resource="https://www.whaleresearch.com/_files/ugd/760f65_8b749645e3f041019ba9e1fee6b3631e.pdf"/>
+  </Matriline>
+
+  <!-- ===== WHALES: matriline members, with their mothers where listed ===== -->
+
+  <!-- J11 matriline members: J27, J31, J39 -->
+  <Whale rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#J27">
+    <whaleCode>J27</whaleCode>
+    <belongsToMatriline rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#matriline_J11"/>
+    <hasMother rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#J11"/>
+  </Whale>
+
+  <Whale rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#J31">
+    <whaleCode>J31</whaleCode>
+    <belongsToMatriline rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#matriline_J11"/>
+    <hasMother rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#J11"/>
+  </Whale>
+
+  <Whale rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#J39">
+    <whaleCode>J39</whaleCode>
+    <belongsToMatriline rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#matriline_J11"/>
+    <hasMother rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#J11"/>
+  </Whale>
+
+  <!-- J14 matriline members: J37, J40, J45, J49 -->
+  <Whale rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#J37">
+    <whaleCode>J37</whaleCode>
+    <belongsToMatriline rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#matriline_J14"/>
+    <hasMother rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#J14"/>
+  </Whale>
+
+  <Whale rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#J40">
+    <whaleCode>J40</whaleCode>
+    <belongsToMatriline rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#matriline_J14"/>
+    <hasMother rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#J14"/>
+  </Whale>
+
+  <Whale rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#J45">
+    <whaleCode>J45</whaleCode>
+    <belongsToMatriline rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#matriline_J14"/>
+    <hasMother rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#J14"/>
+  </Whale>
+
+  <Whale rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#J49">
+    <whaleCode>J49</whaleCode>
+    <belongsToMatriline rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#matriline_J14"/>
+    <hasMother rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#J37"/>
+  </Whale>
+
+  <!-- J16 matriline members: J16, J26, J36, J42, J50 -->
+  <Whale rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#J16">
+    <whaleCode>J16</whaleCode>
+    <belongsToMatriline rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#matriline_J16"/>
+  </Whale>
+
+  <Whale rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#J26">
+    <whaleCode>J26</whaleCode>
+    <belongsToMatriline rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#matriline_J16"/>
+    <hasMother rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#J16"/>
+  </Whale>
+
+  <Whale rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#J36">
+    <whaleCode>J36</whaleCode>
+    <belongsToMatriline rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#matriline_J16"/>
+    <hasMother rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#J16"/>
+  </Whale>
+
+  <Whale rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#J42">
+    <whaleCode>J42</whaleCode>
+    <belongsToMatriline rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#matriline_J16"/>
+    <hasMother rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#J16"/>
+  </Whale>
+
+  <Whale rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#J50">
+    <whaleCode>J50</whaleCode>
+    <belongsToMatriline rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#matriline_J16"/>
+    <hasMother rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#J16"/>
+  </Whale>
+
+  <!-- J17 matriline members: J17, J35, J44, J46, J47, J53 -->
+  <Whale rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#J17">
+    <whaleCode>J17</whaleCode>
+    <belongsToMatriline rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#matriline_J17"/>
+  </Whale>
+
+  <Whale rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#J35">
+    <whaleCode>J35</whaleCode>
+    <belongsToMatriline rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#matriline_J17"/>
+    <hasMother rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#J17"/>
+  </Whale>
+
+  <Whale rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#J44">
+    <whaleCode>J44</whaleCode>
+    <belongsToMatriline rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#matriline_J17"/>
+    <hasMother rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#J17"/>
+  </Whale>
+
+  <Whale rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#J46">
+    <whaleCode>J46</whaleCode>
+    <belongsToMatriline rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#matriline_J17"/>
+    <hasMother rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#J28"/>
+  </Whale>
+
+  <Whale rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#J47">
+    <whaleCode>J47</whaleCode>
+    <belongsToMatriline rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#matriline_J17"/>
+    <hasMother rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#J35"/>
+  </Whale>
+
+  <Whale rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#J53">
+    <whaleCode>J53</whaleCode>
+    <belongsToMatriline rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#matriline_J17"/>
+    <hasMother rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#J17"/>
+  </Whale>
+
+  <!-- J19 matriline members: J19, J41, J51 -->
+  <Whale rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#J19">
+    <whaleCode>J19</whaleCode>
+    <belongsToMatriline rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#matriline_J19"/>
+  </Whale>
+
+  <Whale rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#J41">
+    <whaleCode>J41</whaleCode>
+    <belongsToMatriline rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#matriline_J19"/>
+    <hasMother rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#J19"/>
+  </Whale>
+
+  <Whale rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#J51">
+    <whaleCode>J51</whaleCode>
+    <belongsToMatriline rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#matriline_J19"/>
+    <hasMother rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#J41"/>
+  </Whale>
+
+  <!-- J22 matriline members: J22, J38 -->
+  <Whale rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#J22">
+    <whaleCode>J22</whaleCode>
+    <belongsToMatriline rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#matriline_J22"/>
+  </Whale>
+
+  <Whale rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#J38">
+    <whaleCode>J38</whaleCode>
+    <belongsToMatriline rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#matriline_J22"/>
+    <hasMother rdf:resource="https://github.com/CSC501-OrcaLink/orcalink/ontology#J22"/>
+  </Whale>
+
+  <!-- ===== MOTHERS NOT IN ANY ROSTER (no matriline membership listed) ===== -->
+
+  <Whale rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#J11">
+    <whaleCode>J11</whaleCode>
+  </Whale>
+
+  <Whale rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#J14">
+    <whaleCode>J14</whaleCode>
+  </Whale>
+
+  <Whale rdf:about="https://github.com/CSC501-OrcaLink/orcalink/ontology#J28">
+    <whaleCode>J28</whaleCode>
+  </Whale>
+
+</rdf:RDF>
