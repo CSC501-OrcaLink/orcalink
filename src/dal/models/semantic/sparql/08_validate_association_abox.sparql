@@ -1,0 +1,71 @@
+PREFIX : <https://github.com/CSC501-OrcaLink/orcalink/ontology#>
+
+SELECT ?category (COUNT(*) AS ?count)
+WHERE {
+    {
+        GRAPH <https://github.com/CSC501-OrcaLink/orcalink/graph/data> {
+            ?association a :Association .
+        }
+
+        BIND(
+            "Associations"
+            AS ?category
+        )
+    }
+
+    UNION
+
+    {
+        GRAPH <https://github.com/CSC501-OrcaLink/orcalink/graph/data> {
+            ?association :hasWhaleA ?whale .
+        }
+
+        BIND(
+            "hasWhaleA links"
+            AS ?category
+        )
+    }
+
+    UNION
+
+    {
+        GRAPH <https://github.com/CSC501-OrcaLink/orcalink/graph/data> {
+            ?association :hasWhaleB ?whale .
+        }
+
+        BIND(
+            "hasWhaleB links"
+            AS ?category
+        )
+    }
+
+    UNION
+
+    {
+        GRAPH <https://github.com/CSC501-OrcaLink/orcalink/graph/data> {
+            ?association :associationScore ?score .
+        }
+
+        BIND(
+            "Association scores"
+            AS ?category
+        )
+    }
+
+    UNION
+
+    {
+        GRAPH <https://github.com/CSC501-OrcaLink/orcalink/graph/data> {
+            ?association
+                :sharedSightingCount
+                ?countValue .
+        }
+
+        BIND(
+            "Shared-sighting counts"
+            AS ?category
+        )
+    }
+}
+GROUP BY ?category
+ORDER BY ?category

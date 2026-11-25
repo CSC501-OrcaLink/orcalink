@@ -136,32 +136,37 @@ def rdf_format_for_path(path):
     return formats[suffix]
 
 
-def load_data(store, path):
-    path = Path(path)
+def load_data(store, paths):
+    paths = [Path(path) for path in paths]
 
-    if not path.exists():
-        raise FileNotFoundError(
-            f"RDF data file does not exist: {path}"
-        )
+    for path in paths:
+        if not path.exists():
+            raise FileNotFoundError(
+                f"RDF data file does not exist: {path}"
+            )
 
     graph = NamedNode(DATA_GRAPH_IRI)
 
-    # Repeatable execution: replace only the instance-data graph.
+    # Repeatable execution:
+    # replace the data graph once, then load all ABox files.
     store.update(
         f"CLEAR SILENT GRAPH <{DATA_GRAPH_IRI}>"
     )
 
-    store.load(
-        path=path,
-        format=rdf_format_for_path(path),
-        to_graph=graph,
-    )
+    for path in paths:
+        store.load(
+            path=path,
+            format=rdf_format_for_path(path),
+            to_graph=graph,
+        )
+
+        print(f"Loaded RDF data file: {path}")
 
     store.flush()
 
     count = graph_count(store, DATA_GRAPH_IRI)
 
-    print(f"RDF data loaded: {path}")
+    print(f"Data files loaded: {len(paths)}")
     print(f"Data triples: {count}")
 
 
@@ -266,7 +271,11 @@ def main():
         help="Replace and load the instance-data named graph"
     )
 
-    load_data_parser.add_argument("path")
+    load_data_parser.add_argument(
+    "paths",
+    nargs="+",
+    help="One or more RDF instance-data files"
+)
 
     subparsers.add_parser(
         "status",
@@ -298,7 +307,7 @@ def main():
         load_ontology(store, args.path)
 
     elif args.command == "load-data":
-        load_data(store, args.path)
+        load_data(store, args.paths)
 
     elif args.command == "status":
         print_status(store)
