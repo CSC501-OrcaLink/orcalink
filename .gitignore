@@ -224,3 +224,6 @@ __marimo__/
 *.db-shm
 # macOS metadata
 .DS_Store
+
+# Local semantic triple store
+data/semantic/oxigraph_store/
