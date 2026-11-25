@@ -1,0 +1,40 @@
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?property ?restrictionType ?cardinality ?targetClass
+WHERE {
+    GRAPH <https://github.com/CSC501-OrcaLink/orcalink/graph/ontology> {
+
+        <https://github.com/CSC501-OrcaLink/orcalink/ontology#Sighting>
+            rdfs:subClassOf ?restriction .
+
+        ?restriction a owl:Restriction ;
+                     owl:onProperty ?property ;
+                     owl:onClass ?targetClass .
+
+        {
+            ?restriction
+                owl:qualifiedCardinality
+                ?cardinality .
+
+            BIND(
+                "exactly"
+                AS ?restrictionType
+            )
+        }
+
+        UNION
+
+        {
+            ?restriction
+                owl:maxQualifiedCardinality
+                ?cardinality .
+
+            BIND(
+                "maximum"
+                AS ?restrictionType
+            )
+        }
+    }
+}
+ORDER BY ?property
