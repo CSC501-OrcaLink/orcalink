@@ -1,0 +1,9 @@
+PREFIX : <https://github.com/CSC501-OrcaLink/orcalink/ontology#>
+
+ASK {
+    GRAPH <https://github.com/CSC501-OrcaLink/orcalink/graph/data> {
+        :SPARQL_DEMO_WHALE
+            a :Whale ;
+            :whaleCode "SPARQL_DEMO" .
+    }
+}
