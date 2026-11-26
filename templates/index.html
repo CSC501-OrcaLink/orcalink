@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OrcaLink — Whales</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='orcalink.css') }}">
+</head>
+<body>
+  <!-- OrcaLink logo and page title -->
+  <header>
+
+    <img src="{{ url_for('static', filename='OrcaLink_Logo.png') }}" alt="OrcaLink logo">
+
+    <div>
+      <h1>OrcaLink</h1>
+      <p>Whale Records</p>
+    </div>
+    <nav class="header-tabs" aria-label="OrcaLink pages">
+      <a href="{{ url_for('home') }}"
+         {% if request.endpoint == 'home' %}aria-current="page"{% endif %}>
+          Whale Records
+      </a>
+      <a href="{{ url_for('family.lookup') }}"
+         {% if request.endpoint == 'family.lookup' %}aria-current="page"{% endif %}>
+          Family Lookup
+      </a>
+      <a href="{{ url_for('cosightings.lookup') }}"
+                {% if request.endpoint == 'cosightings.lookup' %}aria-current="page"{% endif %}>
+                Co-sightings
+      </a>
+    </nav>
+  </header>
+
+  <main>
+
+    {% if message %}<p class="message">{{ message }}</p>{% endif %}
+    <div class="layout">
+
+      <!-- Form for adding a new whale to the database -->
+      <section class="panel add-panel">
+        <h2>Add a whale</h2>
+
+        <form method="post">
+          <input type="hidden" name="action" value="add">
+
+          <label>Whale code *</label>
+          <input name="code" placeholder="e.g. TEST_UI" required>
+
+          <label>Name</label>
+          <input name="name">
+
+          <label>Sex</label>
+          <input name="sex">
+
+          <div class="two">
+            <div><label>Birth date</label><input type="date" name="birth"></div>
+            <div><label>Death date</label><input type="date" name="death"></div>
+          </div>
+          <label>Notes</label>
+
+          <textarea name="notes"></textarea>
+
+          <p><button type="submit">Add whale</button></p>
+        </form>
+      </section>
+
+      <!-- Display and manage whale records -->
+      <section class="panel">
+        <h2>Whale records</h2>
+        <!-- Search whales by code or name -->
+        <form class="search" method="get">
+          <input name="search" value="{{ search }}" placeholder="Search code or name">
+          <button type="submit">Search</button>
+        </form>
+
+        <div class="count">{{ total }} record(s) found</div>
+
+        <!-- Display each whale with an expandable edit form -->
+
+        <!-- Display each whale with an expandable edit form -->
+        {% for w in whales %}
+        <div class="whale-row">
+          <details>
+            <summary>
+              <strong>{{ w['WhaleCode'] }}</strong>
+              <span>{% if w['Name'] %}{{ w['Name'] }} · {% endif %}Edit</span>
+            </summary>
+
+            <div class="edit">
+              <form method="post">
+                <input type="hidden" name="action" value="edit">
+                <input type="hidden" name="id" value="{{ w['Id'] }}">
+
+                <label>Name</label>
+                <input name="name" value="{{ w['Name'] or '' }}">
+
+                <label>Sex</label>
+                <input name="sex" value="{{ w['Sex'] or '' }}">
+
+                <div class="two">
+                  <div>
+                    <label>Birth date</label>
+                    <input type="date" name="birth" value="{{ w['BirthDate'] or '' }}">
+                  </div>
+                  <div>
+                    <label>Death date</label>
+                    <input type="date" name="death" value="{{ w['DeathDate'] or '' }}">
+                  </div>
+                </div>
+
+                <label>Notes</label>
+                <textarea name="notes">{{ w['Notes'] or '' }}</textarea>
+
+                <p><button type="submit">Save changes</button></p>
+              </form>
+
+              <!-- Open the delete confirmation popup -->
+              <button
+                class="danger"
+                type="button"
+                data-id="{{ w['Id'] }}"
+                data-code="{{ w['WhaleCode'] }}"
+                onclick="openDelete(this.dataset.id, this.dataset.code)">
+                Delete whale
+              </button>
+            </div>
+          </details>
+          <a class="family-link"
+             href="{{ url_for('family.lookup', code=w['WhaleCode']) }}"
+             aria-label="Family lookup for {{ w['WhaleCode'] }}">
+            Family
+          </a>
+        </div>
+        {% else %}
+        <p>No whales found.</p>
+        {% endfor %}
+
+
+        <!-- Page navigation -->
+        {% if last_page > 1 %}
+        <nav class="pages">
+
+            {% if page > 1 %}
+                <a href="{{ url_for('home', page=page-1, search=search) }}">
+                    Previous
+                </a>
+            {% else %}
+                <span></span>
+            {% endif %}
+
+            <span>Page {{ page }} of {{ last_page }}</span>
+
+            {% if page < last_page %}
+                <a href="{{ url_for('home', page=page+1, search=search) }}">
+                    Next
+                </a>
+            {% else %}
+                <span></span>
+            {% endif %}
+
+        </nav>
+        {% endif %}
+
+      </section>
+    </div>
+  </main>
+
+<!-- Delete confirmation popup -->
+<dialog id="deleteDialog">
+  <h2>Delete whale?</h2>
+  <p>
+      Are you sure you want to delete
+      <strong id="deleteCode"></strong>?
+  </p>
+
+  <p>This action cannot be undone.</p>
+
+  <form method="post">
+      <input type="hidden" name="action" value="delete">
+      <input type="hidden" name="id" id="deleteId">
+
+      <div class="popup-buttons">
+          <button type="button" class="secondary"
+                  onclick="document.getElementById('deleteDialog').close()">
+              Cancel
+          </button>
+
+          <button type="submit" class="danger">
+              Yes, delete
+          </button>
+      </div>
+  </form>
+</dialog>
+
+<script>
+  // Open the popup and show the selected whale's code.
+  function openDelete(id, code) {
+      document.getElementById("deleteId").value = id;
+      document.getElementById("deleteCode").textContent = code;
+      document.getElementById("deleteDialog").showModal();
+  }
+</script>
+</body>
+</html>

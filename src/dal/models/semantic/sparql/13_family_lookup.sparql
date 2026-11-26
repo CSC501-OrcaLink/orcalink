@@ -1,0 +1,26 @@
+PREFIX ol: <https://github.com/CSC501-OrcaLink/orcalink/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?code ?motherCode ?grandmotherCode ?matrilineLabel
+WHERE {
+    GRAPH <https://github.com/CSC501-OrcaLink/orcalink/graph/data> {
+        ?whale a ol:Whale ;
+               ol:whaleCode ?code .
+
+        OPTIONAL {
+            ?whale ol:hasMother ?mother .
+            OPTIONAL {
+                ?mother ol:whaleCode ?motherCode .
+            }
+            OPTIONAL {
+                ?mother ol:hasMother ?grandmother .
+                ?grandmother ol:whaleCode ?grandmotherCode .
+            }
+        }
+
+        OPTIONAL {
+            ?whale ol:belongsToMatriline ?matriline .
+            ?matriline rdfs:label ?matrilineLabel .
+        }
+    }
+}

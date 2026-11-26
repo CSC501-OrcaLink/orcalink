@@ -1,0 +1,40 @@
+PREFIX : <https://github.com/CSC501-OrcaLink/orcalink/ontology#>
+
+SELECT ?category (COUNT(*) AS ?count)
+WHERE {
+    {
+        GRAPH <https://github.com/CSC501-OrcaLink/orcalink/graph/data> {
+            ?x a :Matriline .
+        }
+        BIND("Matrilines" AS ?category)
+    }
+
+    UNION
+
+    {
+        GRAPH <https://github.com/CSC501-OrcaLink/orcalink/graph/data> {
+            ?x a :Whale .
+        }
+        BIND("Whales" AS ?category)
+    }
+
+    UNION
+
+    {
+        GRAPH <https://github.com/CSC501-OrcaLink/orcalink/graph/data> {
+            ?x :belongsToMatriline ?matriline .
+        }
+        BIND("Matriline memberships" AS ?category)
+    }
+
+    UNION
+
+    {
+        GRAPH <https://github.com/CSC501-OrcaLink/orcalink/graph/data> {
+            ?offspring :hasMother ?mother .
+        }
+        BIND("Mother links" AS ?category)
+    }
+}
+GROUP BY ?category
+ORDER BY ?category

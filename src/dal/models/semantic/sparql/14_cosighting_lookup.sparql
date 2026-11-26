@@ -1,0 +1,24 @@
+PREFIX ol: <https://github.com/CSC501-OrcaLink/orcalink/ontology#>
+
+SELECT DISTINCT ?code ?otherCode ?sharedCount
+WHERE {
+    GRAPH <https://github.com/CSC501-OrcaLink/orcalink/graph/data> {
+        ?whale ol:whaleCode ?code .
+        ?other ol:whaleCode ?otherCode .
+
+        ?association a ol:Association ;
+                     ol:associationType "CoSighting" ;
+                     ol:sharedSightingCount ?sharedCount .
+
+        {
+            ?association ol:hasWhaleA ?whale ;
+                         ol:hasWhaleB ?other .
+        }
+        UNION
+        {
+            ?association ol:hasWhaleA ?other ;
+                         ol:hasWhaleB ?whale .
+        }
+    }
+}
+ORDER BY DESC(?sharedCount) ?otherCode

@@ -1,0 +1,9 @@
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT ?class
+WHERE {
+    GRAPH <https://github.com/CSC501-OrcaLink/orcalink/graph/ontology> {
+        ?class a owl:Class .
+    }
+}
+ORDER BY ?class

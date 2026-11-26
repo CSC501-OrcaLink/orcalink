@@ -1,0 +1,7 @@
+PREFIX : <https://github.com/CSC501-OrcaLink/orcalink/ontology#>
+
+DELETE WHERE {
+    GRAPH <https://github.com/CSC501-OrcaLink/orcalink/graph/data> {
+        :SPARQL_DEMO_WHALE ?property ?value .
+    }
+}

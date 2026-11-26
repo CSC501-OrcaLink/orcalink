@@ -1,0 +1,72 @@
+PREFIX : <https://github.com/CSC501-OrcaLink/orcalink/ontology#>
+
+SELECT DISTINCT
+    ?whaleA
+    ?viaWhale
+    ?whaleC
+    ?scoreAB
+    ?scoreBC
+    ?sharedAB
+    ?sharedBC
+WHERE {
+    GRAPH <https://github.com/CSC501-OrcaLink/orcalink/graph/data> {
+
+        # Turn every stored association into a directed A -> B edge.
+        {
+            SELECT ?a ?b ?scoreAB ?sharedAB
+            WHERE {
+                ?assocAB
+                    a :Association ;
+                    :hasWhaleA ?a ;
+                    :hasWhaleB ?b ;
+                    :associationScore ?scoreAB ;
+                    :sharedSightingCount ?sharedAB .
+            }
+        }
+
+        # Find B -> C using either stored endpoint orientation.
+        {
+            {
+                ?assocBC
+                    a :Association ;
+                    :hasWhaleA ?b ;
+                    :hasWhaleB ?c ;
+                    :associationScore ?scoreBC ;
+                    :sharedSightingCount ?sharedBC .
+            }
+
+            UNION
+
+            {
+                ?assocBC
+                    a :Association ;
+                    :hasWhaleA ?c ;
+                    :hasWhaleB ?b ;
+                    :associationScore ?scoreBC ;
+                    :sharedSightingCount ?sharedBC .
+            }
+        }
+
+        FILTER(?a != ?c)
+
+        # A and C must not already have a direct association.
+        FILTER NOT EXISTS {
+            ?direct1
+                a :Association ;
+                :hasWhaleA ?a ;
+                :hasWhaleB ?c .
+        }
+
+        FILTER NOT EXISTS {
+            ?direct2
+                a :Association ;
+                :hasWhaleA ?c ;
+                :hasWhaleB ?a .
+        }
+
+        ?a :whaleCode ?whaleA .
+        ?b :whaleCode ?viaWhale .
+        ?c :whaleCode ?whaleC .
+    }
+}
+LIMIT 20
