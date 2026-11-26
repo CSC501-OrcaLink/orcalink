@@ -2,9 +2,13 @@ import os
 import sqlite3
 from pathlib import Path
 from flask import Flask, render_template, request, redirect, url_for
+from src.ui.family import family_bp
+from src.ui.cosightings import cosightings_bp
 
 # Set up Flask and the database
 app = Flask(__name__, static_folder="assets", static_url_path="/assets")
+app.register_blueprint(family_bp)
+app.register_blueprint(cosightings_bp)
 DB = Path(os.environ.get("ORCALINK_DB", Path(__file__).with_name("orcalink.db")))
 
 

@@ -1,125 +1,71 @@
 <img src="assets/OrcaLink_Logo.png" alt="OrcaLink logo" width="180">
 
-
 # OrcaLink
 
-**CSC 501 - Algorithms and Data Models**  
+**CSC 501 · Algorithms and Data Models**
 University of Victoria
 
-**Team:** Aung Htut, Bowen Zhang, Sophia Umukoro
+**Team** · Aung Htut, Bowen Zhang, Sophia Umukoro
 
-## About the Project
+OrcaLink organizes records about Southern Resident killer whales. Milestone 4 uses SQLite for whale and sighting records. Milestone 5 adds an OWL ontology and an Oxigraph knowledge graph for exploring J-Pod family relationships and whale co-sightings.
 
-OrcaLink is a database project for Southern Resident killer whales.
+## Quickstart
 
-We used data from Dryad and The Whale Museum to build a SQLite database that connects whales, sightings, and observations. We also calculate associations between whales based on sightings they share.
-
-Our Flask website lets users view, search, add, edit, and delete whale records.
-
-## Database
-
-We implemented seven main tables:
-
-| Table | Purpose |
-|---|---|
-| Whale | Stores individual whale information |
-| DataSource | Stores where the data came from |
-| Location | Stores sighting location information |
-| Sighting | Stores sighting records |
-| IndividualObservation | Connects whales to sightings |
-| GroupObservation | Stores reported group observations |
-| Association | Stores whale pairs and their co-sighting scores |
-
-We also use `ObservationStaging` to check the observation data before linking it to the main tables.
-
-## Requirements
-
-Before starting, make sure you have:
-
-- Python 3.10 or newer
-- Git
-- An internet connection for installing Flask
-- A terminal (macOS or Linux)
-
-SQLite is included with Python, so you do not need a separate database server.
-
-## Setup
-
-### 1. Get the project
+You need Git, Bash, Python 3.10 or newer with `venv`, and an internet connection for the first dependency install. SQLite is included with Python, and Oxigraph runs locally through PyOxigraph.
 
 ```bash
 git clone https://github.com/CSC501-OrcaLink/orcalink.git
 cd orcalink
-git switch integration-test
-```
-
-### 2. Run the setup script
-
-```bash
 bash quickstart.sh
 ```
 
-The script will:
+From an existing checkout on the Milestone 5 branch, start with the last command. The script installs dependencies, builds the SQLite demo database, and initializes the Oxigraph ontology and data graphs from the repository files. Open [OrcaLink](http://127.0.0.1:5000) and press `Ctrl+C` in the terminal when finished.
 
-1. Create a Python virtual environment
-2. Install the required packages
-3. Create and populate the SQLite database
-4. Check the imported data
-5. Start the Flask website
+If port 5000 is in use, run `ORCALINK_PORT=5051 bash quickstart.sh` and open [OrcaLink on port 5051](http://127.0.0.1:5051). To prepare both stores without starting Flask, run `bash quickstart.sh --build-only`.
 
-The database will be saved as `orcalink_demo.db`.
+The default local stores are `orcalink_demo.db` and `data/semantic/oxigraph_store/`. Repeat runs reuse the graph and keep edits made in the UI. The `--rebuild` flag rebuilds the SQLite demo database and starts Flask. To create a separate knowledge graph from the source files, set `ORCALINK_SEMANTIC_STORE` to a new path before running quickstart.
 
-### 3. Open the website
+## Try the app
 
-Go to:
+| Page | Try it |
+|---|---|
+| Whale Records | Search for `J49` by code and open the **Family** link beside it. The page also supports adding, editing, and deleting SQLite whale records. |
+| Family Lookup | Search for `J49`. The graph shows mother `J37`, maternal grandmother `J14`, and the `J14 matriline`. Use **Add a whale** with a unique test code, then use **Edit matriline** to assign it a matriline. A test code added here is stored locally in Oxigraph. |
+| Co-sightings | Search for `J1`. The row for `J2` shows 70 shared sightings in the supplied dataset. |
 
-http://127.0.0.1:5000
+Whale Records writes to SQLite. Family Lookup reads and writes Oxigraph. These stores have separate records and changes are not synchronized. Family data covers selected J-Pod whales. A co-sighting counts records that include both whales.
 
-To stop the server, press `Ctrl+C` in the terminal.
+## Architecture and files
 
-## Using the Website
+The browser calls Flask. Whale Records uses the SQLite database through Python's `sqlite3` module. The Family Lookup and Co-sightings routes in `src/ui/` call the data access code in `src/dal/`, which uses PyOxigraph to query and update the local graph. The terminal CLI also accesses the graph for loading, queries, and updates.
 
-The current website manages records in the `Whale` table.
+| Path | Purpose |
+|---|---|
+| `app.py`, `templates/`, `assets/` | Flask entry point, Whale Records page, and shared assets |
+| `src/ui/` | Family Lookup and Co-sightings routes and templates |
+| `src/dal/` | Semantic data access |
+| `src/dal/models/semantic/` | OWL ontology, J-Pod RDF/XML, association Turtle, and SPARQL files |
+| `scripts/semantic_store.py` | Oxigraph command-line interface |
+| `scripts/`, `sql/`, `data/processed/` | SQLite build, schema, and prepared datasets |
+| `docs/`, `reports/` | Project documentation and reports |
 
-**Search:** Enter a whale code, such as `J1`, or search by name.
+Oxigraph stores the schema in the ontology named graph and instances in the data named graph. Run the CLI `status` command to see both graph IRIs and their counts.
 
-**Add:** Enter a new whale code and any information you want to include.
+## Run SPARQL and tests
 
-**Edit:** Click a whale record, change its information, and select Save changes.
-
-**Delete:** Click Delete whale and confirm the action.
-
-For testing, use a temporary whale code such as `TEST_UI`. This avoids changing the original dataset.
-
-Other tables can be accessed using SQL queries and the Python scripts.
-
-## Rebuilding the Database
-
-To create the database without starting Flask:
+After quickstart has populated the stores, stop Flask with `Ctrl+C` if it is running. From the project root, run the following commands.
 
 ```bash
-bash quickstart.sh --build-only
+SPARQL_DIR=src/dal/models/semantic/sparql
+.venv/bin/python scripts/semantic_store.py status
+.venv/bin/python scripts/semantic_store.py query "$SPARQL_DIR/07_family_grandmother.sparql"
+.venv/bin/python scripts/semantic_store.py query "$SPARQL_DIR/09_indirect_cosighting.sparql"
+.venv/bin/python -m scripts.web_test
 ```
 
-To rebuild the database from the CSV files:
+The family query returns `J14` and `J14 matriline` for `J49`. The indirect query finds pairs of whales connected through a third whale's co-sightings. The web test checks SQLite view, search, add, edit, and delete on a temporary database.
 
-```bash
-bash quickstart.sh --rebuild
-```
-
-Rebuilding replaces `orcalink_demo.db`, but does not change your original `orcalink.db`.
-
-## Running Tests
-
-Test the Flask functions:
-
-```bash
-.venv/bin/python scripts/web_smoke_test.py
-```
-
-This tests viewing, searching, adding, editing, and deleting whale records using a temporary database.
-
-You can also run the SQL checks:
+If you have the optional `sqlite3` command installed, run these relational data checks.
 
 ```bash
 sqlite3 orcalink_demo.db < sql/sighting_checks.sql
@@ -127,73 +73,35 @@ sqlite3 orcalink_demo.db < sql/08_group_observation_checks.sql
 sqlite3 orcalink_demo.db < sql/10_association_checks.sql
 ```
 
-The `sqlite3` terminal command is optional and may need to be installed separately.
+Run the semantic smoke test against a disposable store. The test loads both graphs, checks the expected data and sample queries, and demonstrates SPARQL INSERT, ASK, and DELETE.
 
-## Integration Results
-
-Our integration test on November 4, 2026 produced:
-
-| Table | Records |
-|---|---:|
-| Whale | 130 |
-| Sighting | 122,764 |
-| Location | 38,926 |
-| IndividualObservation | 35,042 |
-| GroupObservation | 116,822 |
-| Association | 686 |
-
-All 35,042 individual observations were linked to sightings successfully.
-
-The checks reported:
-- 0 unmatched sightings
-- 0 foreign-key errors
-
-## Project Files
-
-```text
-orcalink/
-├── app.py                 # Flask application
-├── quickstart.sh          # Runs setup and Flask
-├── requirements.txt       # Python packages
-├── scripts/               # Data import and setup
-├── sql/                   # Tables, queries and checks
-├── templates/             # Website HTML
-├── assets/                # Logo
-├── data/processed/        # Prepared datasets
-├── docs/                  # Project notes and screenshots
-└── reports/               # Project reports
+```bash
+(
+  orcalink_test_dir="$(mktemp -d)"
+  trap 'rm -rf -- "$orcalink_test_dir"' EXIT
+  ORCALINK_SEMANTIC_STORE="$orcalink_test_dir/store" \
+    .venv/bin/python scripts/semantic_smoke_test.py
+)
 ```
 
-The database is built from the prepared CSV files in `data/processed/data/`.
+To load the source files manually, use a new store path or a store you intend to reset. Each load command replaces the named graph it loads.
 
-The setup script runs the import files in the required order, starting with sightings, then whales, individual observations, group observations, and associations.
+```bash
+SEMANTIC_DIR=src/dal/models/semantic
+.venv/bin/python scripts/semantic_store.py load-ontology "$SEMANTIC_DIR/orcalink.owl"
+.venv/bin/python scripts/semantic_store.py load-data \
+  "$SEMANTIC_DIR/orcalink_jpod_abox.rdf" \
+  "$SEMANTIC_DIR/orcalink_associations.ttl"
+```
 
-## Limitations
+## Data sources and reuse
 
-Not every observation identifies a specific whale. We keep missing or unresolved whale IDs instead of guessing.
-
-The association scores are based on shared sightings. They do not necessarily mean that two whales have a confirmed social relationship.
-
-The current Flask interface only manages whale records. The other relations are available through SQL and Python.
-
-The family-related tables from our earlier ER diagram are not included in this milestone's implementation.
-
-## Data Sources
-
-- Dryad — J-pod whale lifespan and observation data
-- The Whale Museum — Historical sighting records
-- Center for Whale Research — Background information
-
-Data files must only be shared when permitted by their licenses or data-release agreements. The team must also decide on a code license before releasing the project for reuse.
+The project uses J-Pod data from Dryad, historical sighting records supplied by The Whale Museum, and background information from the Center for Whale Research. See [Data sources](docs/data_sources.md) for details. Dataset reuse and redistribution are subject to their respective licenses and data-release agreements. The team has not specified a code license.
 
 ## Contributions
 
-- **Aung Htut:** Whale, IndividualObservation, and Flask whale interface
-- **Sophia Umukoro:** DataSource, Location, and Sighting
-- **Bowen Zhang:** GroupObservation, Association, and integration testing
+- **Aung Htut** · Whale and IndividualObservation, OWL ontology, and Flask interface
+- **Bowen Zhang** · GroupObservation and Association, Oxigraph and SPARQL, and integration testing
+- **Sophia Umukoro** · DataSource, Location, and Sighting, and J-Pod family RDF
 
-The GitHub commit history shows our individual work.
-
-## Report
-
-The Milestone 4 report includes our relational model, SQL queries, architecture, interface examples, testing results, and AI-use disclosure.
+Individual contributions are also recorded in the Git history.

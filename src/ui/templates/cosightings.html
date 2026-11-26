@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Co-sightings | OrcaLink</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='orcalink.css') }}">
+</head>
+<body>
+
+    <header>
+        <a href="{{ url_for('home') }}">
+            <img src="{{ url_for('static', filename='OrcaLink_Logo.png') }}"
+                 alt="OrcaLink home" style="display: block;">
+        </a>
+        <div>
+            <h1>OrcaLink</h1>
+            <p>Co-sightings</p>
+        </div>
+
+        <nav class="header-tabs" aria-label="OrcaLink pages">
+            <a href="{{ url_for('home') }}"
+               {% if request.endpoint == 'home' %}aria-current="page"{% endif %}>
+                Whale Records
+            </a>
+            <a href="{{ url_for('family.lookup') }}"
+               {% if request.endpoint == 'family.lookup' %}aria-current="page"{% endif %}>
+                Family Lookup
+            </a>
+            <a href="{{ url_for('cosightings.lookup') }}"
+                {% if request.endpoint == 'cosightings.lookup' %}aria-current="page"{% endif %}>
+                Co-sightings
+            </a>
+        </nav>
+
+    </header>
+
+    <main>
+        <section class="panel">
+            <h2>Co-sighting Lookup</h2>
+            <p class="count">Find whales recorded together in the same sightings.</p>
+
+            <form method="get" action="{{ url_for('cosightings.lookup') }}">
+                <label for="code">Whale code</label>
+                <div class="search">
+                    <input id="code" name="code" value="{{ code }}"
+                           placeholder="e.g. J1" required>
+                    <button type="submit">Search</button>
+                </div>
+            </form>
+            {% if not code %}
+                <p>
+                    <a class="family-link"
+                    href="{{ url_for('cosightings.lookup', code='J1') }}">
+                        Try J1
+                    </a>
+                </p>
+            {% endif %}
+            {% if error %}
+                <p class="message" role="alert">{{ error }}</p>
+            {% elif results %}
+                <h2>Co-sightings for {{ code }}</h2>
+                <table class="cosightings-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Whale</th>
+                            <th scope="col">Shared sightings</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in results %}
+                            <tr>
+                                <td>
+                                    <a href="{{ url_for('cosightings.lookup', code=row.code) }}">
+                                        {{ row.code }}
+                                    </a>
+                                </td>
+                                <td>{{ row.shared_count }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <p class="count">Shared sightings count how many sighting records list both whales.</p>
+            {% elif results == [] %}
+                <p class="message">No co-sightings were found for {{ code }}.</p>
+            {% endif %}
+        </section>
+    </main>
+</body>
+</html>

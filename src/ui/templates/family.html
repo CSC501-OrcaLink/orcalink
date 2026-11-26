@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Whale Family Lookup | OrcaLink</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='orcalink.css') }}">
+</head>
+<body>
+
+    <header>
+        <a href="{{ url_for('home') }}">
+            <img src="{{ url_for('static', filename='OrcaLink_Logo.png') }}"
+                 alt="OrcaLink home" style="display: block;">
+        </a>
+        <div>
+            <h1>OrcaLink</h1>
+            <p>Family Lookup</p>
+        </div>
+
+        <nav class="header-tabs" aria-label="OrcaLink pages">
+            <a href="{{ url_for('home') }}"
+               {% if request.endpoint == 'home' %}aria-current="page"{% endif %}>
+                Whale Records
+            </a>
+            <a href="{{ url_for('family.lookup') }}"
+               {% if request.endpoint == 'family.lookup' %}aria-current="page"{% endif %}>
+                Family Lookup
+            </a>
+            <a href="{{ url_for('cosightings.lookup') }}"
+                {% if request.endpoint == 'cosightings.lookup' %}aria-current="page"{% endif %}>
+                Co-sightings
+            </a>
+        </nav>
+    </header>
+
+    <main class="family-page">
+
+        <section class="panel">
+            <h2>Whale Family Lookup</h2>
+
+            <form method="get" action="{{ url_for('family.lookup') }}">
+                <label for="code">Whale code</label>
+                <div class="search">
+                    <input id="code" name="code" value="{{ code }}"
+                           placeholder="e.g. J49" required>
+                    <button type="submit">Search</button>
+                </div>
+            </form>
+            <p class="count">Family data is available for selected J-Pod whales.</p>
+
+            {% if not code %}
+                <p>
+                    <a class="family-link" href="{{ url_for('family.lookup', code='J49') }}">
+                        Try J49
+                    </a>
+                </p>
+            {% endif %}
+
+            {% if message and not error %}
+                <p class="message" role="status">{{ message }}</p>
+            {% endif %}
+
+            {% if error %}
+                <p class="message" role="alert">{{ error }}</p>
+            {% elif results %}
+                <h2>Family information for {{ code }}</h2>
+                {% for row in results %}
+                <dl class="family-result">
+                    <div>
+                        <dt>Mother</dt>
+                        <dd>
+                            {% if row.mother %}
+                                <a href="{{ url_for('family.lookup', code=row.mother) }}">
+                                    {{ row.mother }}
+                                </a>
+                            {% else %}
+                                Not recorded
+                            {% endif %}
+                        </dd>
+                    </div>
+
+                    <div>
+                        <dt>Maternal grandmother</dt>
+                        <dd>
+                            {% if row.grandmother %}
+                                <a href="{{ url_for('family.lookup', code=row.grandmother) }}">
+                                    {{ row.grandmother }}
+                                </a>
+                            {% else %}
+                                Not recorded
+                            {% endif %}
+                        </dd>
+                    </div>
+
+                    <div>
+                        <dt>Matriline</dt>
+                        <dd>{{ row.matriline or 'Not recorded' }}</dd>
+                    </div>
+
+                </dl>
+                {% endfor %}
+                {% if matrilines %}
+                    <details>
+                        <summary class="form-toggle">
+                            <span aria-hidden="true">✎</span> Edit matriline
+                        </summary>
+                        <form method="post" action="{{ url_for('family.lookup') }}">
+                            <input type="hidden" name="action" value="update">
+                            <input type="hidden" name="code" value="{{ code }}">
+
+                            <label for="matriline">Matriline for {{ code }}</label>
+                            <select id="matriline" name="matriline" required>
+                                <option value="">Choose a matriline</option>
+                                {% for iri, label in matrilines.items() %}
+                                    <option value="{{ iri }}">{{ label }}</option>
+                                {% endfor %}
+                            </select>
+                            <button type="submit">Save matriline</button>
+                        </form>
+                    </details>
+                {% endif %}
+            {% elif results == [] %}
+                <p class="message">No family record found for {{ code }}.</p>
+            {% endif %}
+            <details>
+                <summary class="form-toggle">
+                    <span aria-hidden="true">+</span> Add a whale
+                </summary>
+                <form method="post" action="{{ url_for('family.lookup') }}">
+                    <input type="hidden" name="action" value="add">
+                    <label for="new-code">New whale code</label>
+                    <div class="search">
+                        <input id="new-code" name="code" maxlength="20" required>
+                        <button type="submit">Add whale</button>
+                    </div>
+                </form>
+            </details>
+            <p class="count">Edits on this page are saved to the Oxigraph knowledge graph.</p>
+        </section>
+    </main>
+</body>
+</html>
